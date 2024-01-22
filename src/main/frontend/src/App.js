@@ -8,12 +8,11 @@ import './css/page.css';
 import './css/response.css';
 
 function App() {
-
   return (
     <div className="wrap">
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
         <RootRoutes />
-      </React.StrictMode>
+      {/* </React.StrictMode> */}
     </div>
   )
 }
