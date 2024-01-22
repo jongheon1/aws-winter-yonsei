@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b76ab831.css",
+    "main.js": "/static/js/main.d0ee001d.js",
+    "static/js/27.7d5775cb.chunk.js": "/static/js/27.7d5775cb.chunk.js",
+    "static/media/bg_ds_t2.png": "/static/media/bg_ds_t2.58237ebb555d4247052c.png",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.b76ab831.css",
+    "static/js/main.d0ee001d.js"
+  ]
+}
