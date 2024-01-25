@@ -4,6 +4,10 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
+ext {
+	springModulithVersion = "1.1.2"
+}
+
 group 'yonsei.gemini'
 version '0.0.1'
 java {
@@ -22,10 +26,19 @@ dependencies {
 
 	https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter 
 	*/
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.springframework.boot:spring-boot-starter-data-rest"
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly "org.springframework.modulith:spring-modulith-actuator"
+	developmentOnly "org.springframework.boot:spring-boot-docker-compose"
+	compileOnly "org.projectlombok:lombok"
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
+	annotationProcessor "org.projectlombok:lombok"
 
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	
 	/* Web 
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-starter-hateoas')
@@ -56,7 +69,7 @@ dependencies {
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
 	runtime('com.h2database:h2')
 	runtime('com.microsoft.sqlserver:mssql-jdbc')
-	runtime('mysql:mysql-connector-java')
+
 	runtime('org.apache.derby:derby')
 	runtime('org.hsqldb:hsqldb')
 	runtime('org.postgresql:postgresql')
@@ -118,4 +131,10 @@ task copyReactBuildFiles(type: Copy) {
 	dependsOn "buildReact"
 	from "$frontendDir/build"
 	into "$projectDir/src/main/resources/static"
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.modulith:spring-modulith-bom:$springModulithVersion"
+	}
 }
