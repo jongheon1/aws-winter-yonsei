@@ -1,3 +1,4 @@
+/**
 package com.yonsei.demo.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,3 +19,4 @@ public class Scheduler {
         log.info("Scheduled task completed: New bills fetched and processed");
     }
 }
+**/
