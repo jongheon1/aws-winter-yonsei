@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Security Demo</title>
+</head>
+<body>
+    <h1>Welcome to the Spring Security Demo</h1>
+
+    {{#userName}}
+        <p>Logged in as: <span id="user">{{userName}}</span></p>
+        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+    {{/userName}}
+
+    {{^userName}}
+        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+    {{/userName}}
+
+    <!-- Your other content goes here -->
+
+</body>
+</html>

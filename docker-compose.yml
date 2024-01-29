@@ -6,7 +6,7 @@ services:
     ports:
       - "8200:3306"
     environment:
-      MYSQL_DATABASE: team_jiv_main
+      MYSQL_DATABASE: team_gemini_main
       MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Seoul
     volumes:

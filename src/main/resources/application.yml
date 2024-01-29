@@ -8,13 +8,18 @@ spring:
             connectionTimeout: 15000
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: create
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.MySQLDialect
     mvc:
+        view:
+            prefix: /templates/
+            suffix: .mustache
         log-request-details: true
         log-resolved-exception: true
+    profiles:
+        include: oauth
 logging:
     level:
         team:
