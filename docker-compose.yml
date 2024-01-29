@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:8.0
+    image: 0914eagle/mysql
     container_name: team-gemini-database-local
     restart: always
     ports:
