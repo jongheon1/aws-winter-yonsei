@@ -1,8 +1,8 @@
 spring:
     datasource:
-        url: jdbc:mysql://localhost:8200/team_gemini_main?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&useSSL=false
-        username: root
-        password: root
+        url: jdbc:mysql://ysu-team-002-dev.cnmgd1eiu1rn.ap-northeast-2.rds.amazonaws.com:3306/develop?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+        username: admin
+        password: gemini02
         hikari:
             idleTimeout: 500
             connectionTimeout: 15000
@@ -15,6 +15,12 @@ spring:
     mvc:
         log-request-details: true
         log-resolved-exception: true
+    profiles:
+      include: API-KEY
+openai:
+    api-key: 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
+    model: gpt-3.5-turbo
+    api-url: https://api.openai.com/v1/chat/completions
 logging:
     level:
         team:

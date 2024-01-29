@@ -8,6 +8,10 @@ ext {
 	springModulithVersion = "1.1.2"
 }
 
+jar {
+	enabled = false
+}
+
 group 'yonsei.gemini'
 version '0.0.1'
 java {
@@ -27,7 +31,9 @@ dependencies {
 	https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter 
 	*/
 	implementation "org.springframework.boot:spring-boot-starter-actuator"
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0"
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.0'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-data-rest"

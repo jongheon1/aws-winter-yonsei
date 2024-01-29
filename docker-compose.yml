@@ -1,12 +1,12 @@
 services:
   db:
-    image: mysql:8.0
+    image: 0914eagle/mysql
     container_name: team-gemini-database-local
     restart: always
     ports:
       - "8200:3306"
     environment:
-      MYSQL_DATABASE: team_jiv_main
+      MYSQL_DATABASE: team_gemini_main
       MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Seoul
     volumes:
