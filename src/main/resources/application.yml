@@ -23,7 +23,7 @@ spring:
             - oauth
             - API-KEY
 openai:
-    api-key: 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
+    api-key: "Api-key"
     model: gpt-3.5-turbo
     api-url: https://api.openai.com/v1/chat/completions
 logging:
