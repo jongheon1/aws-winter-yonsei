@@ -38,4 +38,18 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
         return subscription.toString();
     }
+
+    public String unsubscribe(String userEmail, String keywordValue) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        Keyword keyword = keywordRepository.findByValue(keywordValue)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid keyword Value"));
+        Subscription subscription = subscriptionRepository.findByUserAndKeyword(user, keyword)
+                .orElseThrow(() -> new IllegalArgumentException("Subscription not found"));
+
+        subscriptionRepository.delete(subscription);
+
+        return "Unsubscribed successfully";
+
+    }
 }

@@ -11,6 +11,11 @@
     {{#userName}}
         <p>Logged in as: <span id="user">{{userName}}</span></p>
         <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+        <form action="/subscribe" method="post">
+            <input type="text" name="value">
+            <button type="submit">구독</button>
+        </form>
+
     {{/userName}}
 
     {{^userName}}

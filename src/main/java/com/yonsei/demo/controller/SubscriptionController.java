@@ -23,11 +23,20 @@ public class SubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
-    @PostMapping("/subscription")
+    @PostMapping("/subscribe")
     public ResponseEntity<?> subscribe(@RequestBody KeywordDto keywordDto) {
 
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         String result = subscriptionService.subscribe(user.getEmail(), keywordDto.getValue());
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/unsubscribe")
+    public ResponseEntity<?> unsubscribe(@RequestBody KeywordDto keywordDto) {
+
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        String result = subscriptionService.unsubscribe(user.getEmail(), keywordDto.getValue());
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
