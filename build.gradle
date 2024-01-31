@@ -40,7 +40,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	runtimeOnly "org.springframework.modulith:spring-modulith-actuator"
-	developmentOnly "org.springframework.boot:spring-boot-docker-compose"
 	compileOnly "org.projectlombok:lombok"
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
 	developmentOnly "org.springframework.boot:spring-boot-devtools"
