@@ -98,17 +98,18 @@ function EgovMain(props) {
     console.groupEnd("EgovMain");
 
     return (
-        <div className="container P_MAIN" background-color="lightblue">
+        <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
             <div className="c_wrap">
+                <br />
                 <div className="condition">
                     <ul>
                         <li className="third_1 L">
                             <label className="f_select" htmlFor="search_select">
                                 <select defaultValue={"0"} name="search_select" id="search_select">
                                     <option value="0">전체</option>
-                                    <option value="1">제목</option>
-                                    <option value="2">제목/내용</option>
-                                    <option value="3">작성자</option>
+                                    {/* <option value="1">제목</option> */}
+                                    {/* <option value="2">제목/내용</option> */}
+                                    {/* <option value="3">작성자</option> */}
                                 </select>
                             </label>
                         </li>
@@ -126,15 +127,10 @@ function EgovMain(props) {
                 </div>
                 <div className="colbox">
                     <div className="left_col">
-                        <iframe src="https://ysu-004.kb.us-east-2.aws.elastic-cloud.com:9243/app/visualize?auth_provider_hint=anonymous1#/edit/92357800-bc4f-11ee-aeaf-7bd8b9fe8b6e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(emptyAsNull:!f),schema:metric,type:count),(enabled:!t,id:'2',params:(excludeIsRegex:!t,field:account_length,includeIsRegex:!t,missingBucket:!f,missingBucketLabel:Missing,order:desc,orderBy:'1',otherBucket:!f,otherBucketLabel:Other,size:15),schema:segment,type:terms)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),detailedTooltip:!t,fittingFunction:linear,grid:(categoryLines:!f),labels:(),legendPosition:right,maxLegendLines:1,palette:(name:default,type:palette),radiusRatio:9,seriesParams:!((circlesRadius:1,data:(id:'1',label:Count),drawLinesBetweenPoints:!t,interpolate:linear,lineWidth:2,mode:stacked,show:!t,showCircles:!t,type:area,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),truncateLegend:!t,type:area,valueAxes:!((id:ValueAxis-1,labels:(filter:!t,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:''),type:value))),title:test,type:area))"
-                        height="100%" width="100%"></iframe>
-                    </div>
-
-                    <div className="right_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><a href="#공지사항" className="on">공지사항</a></li>
-                                <li><a href="#갤러리">갤러리</a></li>
+                                <li><a href="#default" className="on">정확도순</a></li>
+                                <li><a href="#latest">최신순</a></li>
                             </ul>
                             <div className="list">
                                 <div className="notice">
@@ -142,7 +138,7 @@ function EgovMain(props) {
                                     <ul>
                                         {noticeListTag}
                                     </ul>
-                                    <Link to={URL.INFORM_NOTICE} className="more">더보기</Link>
+                                    {/* <Link to={URL.INFORM_NOTICE} className="more">더보기</Link> */}
                                 </div>
 
                                 <div className="gallary">
@@ -157,15 +153,29 @@ function EgovMain(props) {
 
                         <div className="banner">
                             <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
-                                <strong>자료실</strong>
-                                <span>다양한 자료를<br />다운로드 받으실 수 있습니다.</span>
+                                <strong>법안번호</strong>
+                                <span>법안제목<br />초록색은 승인된법안</span>
                             </Link>
                             <Link to={URL.ABOUT} className="bn2">
-                                <strong>표준프레임워크센터</strong>
-                                <span>표준프레임워크센터의<br />약도 등의 정보를 제공합니다.</span>
+                                <strong>법안번호</strong>
+                                <span>법안제목<br />빨간색은 철회법안</span>
+                            </Link>
+                            <Link to={URL.SUPPORT_DOWNLOAD} className="bn3">
+                                <strong>법안번호</strong>
+                                <span>법안제목<br />회색은 계류법안</span>
+                            </Link>
+                            <Link to={URL.ABOUT} className="bn3">
+                                <strong>법안번호</strong>
+                                <span>법안제목<br />회색은 계류법안</span>
                             </Link>
                         </div>
                     </div>
+
+                    <div className="right_col">
+                        <iframe src="https://ysu-004.kb.us-east-2.aws.elastic-cloud.com:9243/app/visualize?auth_provider_hint=anonymous1#/edit/92357800-bc4f-11ee-aeaf-7bd8b9fe8b6e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(emptyAsNull:!f),schema:metric,type:count),(enabled:!t,id:'2',params:(excludeIsRegex:!t,field:account_length,includeIsRegex:!t,missingBucket:!f,missingBucketLabel:Missing,order:desc,orderBy:'1',otherBucket:!f,otherBucketLabel:Other,size:15),schema:segment,type:terms)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),detailedTooltip:!t,fittingFunction:linear,grid:(categoryLines:!f),labels:(),legendPosition:right,maxLegendLines:1,palette:(name:default,type:palette),radiusRatio:9,seriesParams:!((circlesRadius:1,data:(id:'1',label:Count),drawLinesBetweenPoints:!t,interpolate:linear,lineWidth:2,mode:stacked,show:!t,showCircles:!t,type:area,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),truncateLegend:!t,type:area,valueAxes:!((id:ValueAxis-1,labels:(filter:!t,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:''),type:value))),title:test,type:area))"
+                        height="100%" width="100%" style={{ borderRadius: "10px", minHeight: "400px" }}></iframe>
+                    </div>
+                    <br />
                 </div>
 
                 {/* <div className="banner_bot">

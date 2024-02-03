@@ -261,6 +261,12 @@
     .P_MAIN .banner > a {width: 100%; height: 100px; margin: 0 !important; padding: 17px 0 0 24px;}
     .P_MAIN .banner > a.bn1::before {right: 25px; top: -40px; width: 75px; height: 75px;}
     .P_MAIN .banner > a.bn2::before {right: 25px; top: -40px; width: 75px; height: 75px;}
+        .P_MAIN .banner>a.bn3::before {
+            right: 25px;
+            top: -40px;
+            width: 75px;
+            height: 75px;
+        }
     .P_MAIN .banner > a + a {margin-top: 20px !important;}
     .P_MAIN .banner > a strong {font-size: 16px;}
     .P_MAIN .banner > a span {font-size: 13px; line-height: 18px;}

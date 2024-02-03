@@ -58,7 +58,7 @@ function EgovHeader() {
 
     return (
         // <!-- header -->
-        <div className="header">
+        <div className="header" style={{ backgroundColor: "#7A9ACB" }}>
             <div className="inner">
                 {/* <Link to={URL.MAIN} className="ico lnk_go_template" target="_blank">홈페이지 템플릿 소개 페이지로 이동</Link> */}
 
@@ -72,8 +72,8 @@ function EgovHeader() {
                     <ul>
                         {/* <li><NavLink to={URL.ABOUT} className={({ isActive }) => (isActive ? "cur" : "")}>사이트소개</NavLink></li> */}
                         {/* <li><NavLink to={URL.INTRO} className={({ isActive }) => (isActive ? "cur" : "")}>정보마당</NavLink></li> */}
-                        <li><NavLink to={URL.SUPPORT} className={({ isActive }) => (isActive ? "cur" : "")}>고객지원</NavLink></li>
-                        <li><NavLink to={URL.INFORM} className={({ isActive }) => (isActive ? "cur" : "")}>알림마당</NavLink></li>
+                        {/* <li><NavLink to={URL.SUPPORT} className={({ isActive }) => (isActive ? "cur" : "")}>고객지원</NavLink></li> */}
+                        {/* <li><NavLink to={URL.INFORM} className={({ isActive }) => (isActive ? "cur" : "")}>알림마당</NavLink></li> */}
                         {/* {sessionUserSe ==='USR' &&
                             <li><NavLink to={URL.ADMIN} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리</NavLink></li>
                         } */}
@@ -86,14 +86,17 @@ function EgovHeader() {
                     {sessionUserId &&
                         <>
                             <span className="person">{sessionUserName} </span> 님이, 관리자로 로그인하셨습니다.
-                            <button onClick={logOutHandler} className="btn">로그아웃</button>
+                            <a href="/oauth2/authorization/google">
+                                <button className="btn logout">로그아웃</button>
+                            </a>
+                            {/* <button onClick={logOutHandler} className="btn">로그아웃</button> */}
                         </>
                     }
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
-                        // <Link to="/oauth2/authorization/google">
-                            <button className="btn login" alt="/oauth2/authorization/google">로그인</button>
-                        // </Link>
+                        <a href="/oauth2/authorization/google">
+                            <button className="btn login">로그인</button>
+                        </a>
                         // <button onClick={logInHandler} className="btn login">로그인</button>
                     }
                 </div>
