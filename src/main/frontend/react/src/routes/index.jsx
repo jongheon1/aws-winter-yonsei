@@ -7,7 +7,6 @@ import CODE from 'constants/code';
 //COMMON
 import EgovHeader from 'components/EgovHeader';
 import EgovFooter from 'components/EgovFooter';
-import EgovInfoPopup from 'components/EgovInfoPopup';
 import EgovError from 'components/EgovError';
 
 import EgovMain from 'pages/main/EgovMain';
@@ -222,8 +221,7 @@ const SecondRoutes = () => {
 		<Route path={URL.ADMIN_MANAGER} element={<EgovAdminPasswordUpdate />} />
       </Routes>
       <EgovFooter />
-      <EgovInfoPopup />
-      
+]      
     </>
   )
   

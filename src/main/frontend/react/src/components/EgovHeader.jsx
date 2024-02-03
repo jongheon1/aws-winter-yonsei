@@ -60,7 +60,7 @@ function EgovHeader() {
         // <!-- header -->
         <div className="header">
             <div className="inner">
-                <Link to={URL.MAIN} className="ico lnk_go_template" target="_blank">홈페이지 템플릿 소개 페이지로 이동</Link>
+                {/* <Link to={URL.MAIN} className="ico lnk_go_template" target="_blank">홈페이지 템플릿 소개 페이지로 이동</Link> */}
 
                 <h1 className="logo">
                     <Link to={URL.MAIN} className="w"><img src="/assets/images/logo_w.png" alt="표준프레임워크포털 eGovFrame 심플홈페이지" /></Link>
@@ -70,13 +70,13 @@ function EgovHeader() {
                 <div className="gnb">
                     <h2 className="blind">주메뉴</h2>
                     <ul>
-                        <li><NavLink to={URL.ABOUT} className={({ isActive }) => (isActive ? "cur" : "")}>사이트소개</NavLink></li>
-                        <li><NavLink to={URL.INTRO} className={({ isActive }) => (isActive ? "cur" : "")}>정보마당</NavLink></li>
+                        {/* <li><NavLink to={URL.ABOUT} className={({ isActive }) => (isActive ? "cur" : "")}>사이트소개</NavLink></li> */}
+                        {/* <li><NavLink to={URL.INTRO} className={({ isActive }) => (isActive ? "cur" : "")}>정보마당</NavLink></li> */}
                         <li><NavLink to={URL.SUPPORT} className={({ isActive }) => (isActive ? "cur" : "")}>고객지원</NavLink></li>
                         <li><NavLink to={URL.INFORM} className={({ isActive }) => (isActive ? "cur" : "")}>알림마당</NavLink></li>
-                        {sessionUserSe ==='USR' &&
+                        {/* {sessionUserSe ==='USR' &&
                             <li><NavLink to={URL.ADMIN} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리</NavLink></li>
-                        }
+                        } */}
                     </ul>
                 </div>
 
@@ -91,7 +91,10 @@ function EgovHeader() {
                     }
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
-                        <button onClick={logInHandler} className="btn login">로그인</button>
+                        // <Link to="/oauth2/authorization/google">
+                            <button className="btn login" alt="/oauth2/authorization/google">로그인</button>
+                        // </Link>
+                        // <button onClick={logInHandler} className="btn login">로그인</button>
                     }
                 </div>
                 {/* <!--// PC web에서 보여지는 영역 --> */}
