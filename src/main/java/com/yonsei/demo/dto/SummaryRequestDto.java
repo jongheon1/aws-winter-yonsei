@@ -13,12 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 public class SummaryRequestDto {
-@Value("${openai.sum-system-prompt}")
-    private String systemPrompt;
     private String model;
     private List<MessageDto> messages;
 
-    public SummaryRequestDto(String model, String prompt) {
+    public SummaryRequestDto(String model, String prompt, String systemPrompt) {
         this.model = model;
 
         this.messages = new ArrayList<>();

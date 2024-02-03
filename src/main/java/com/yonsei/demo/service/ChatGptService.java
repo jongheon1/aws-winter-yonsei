@@ -15,7 +15,7 @@ public class ChatGptService {
     private final RestTemplate restTemplate;
 
     @Value("${openai.sum-system-prompt}")
-    private String SunsystemPrompt;
+    private String SumSystemPrompt;
 
     @Value("${openai.chat-system-prompt}")
     private String ChatSystemPrompt;
@@ -42,7 +42,7 @@ public class ChatGptService {
     }
 
     public String summary(String prompt){
-        SummaryRequestDto request = new SummaryRequestDto(model, prompt);
+        SummaryRequestDto request = new SummaryRequestDto(model, prompt, SumSystemPrompt);
 
         // call the API
         ChatResponseDto response = restTemplate.postForObject(apiUrl, request, ChatResponseDto.class);
