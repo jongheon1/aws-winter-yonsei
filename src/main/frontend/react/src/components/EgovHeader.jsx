@@ -18,13 +18,14 @@ function EgovHeader() {
 
     const navigate = useNavigate();
 
-    const logInHandler = () => { // 로그인 정보 없을 시
-        navigate(URL.LOGIN);
+    const logInHandler = async () => { // 로그인 정보 없을 시
+        window.location.href = '/oauth2/authorization/google';
+        //navigate('/oauth2/authorization/google');
 		// PC와 Mobile 열린메뉴 닫기
-		document.querySelector('.all_menu.WEB').classList.add('closed');
-        document.querySelector('.btnAllMenu').classList.remove('active');
-        document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
-		document.querySelector('.all_menu.Mobile').classList.add('closed');
+		// document.querySelector('.all_menu.WEB').classList.add('closed');
+        // document.querySelector('.btnAllMenu').classList.remove('active');
+        // document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+		// document.querySelector('.all_menu.Mobile').classList.add('closed');
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/auth/logout';
@@ -91,9 +92,9 @@ function EgovHeader() {
                     }
                     {/* 로그인 : 로그인 정보 없을 때 */}
                     {!sessionUserId &&
-                        // <Link to="/oauth2/authorization/google">
-                            <button className="btn login" alt="/oauth2/authorization/google">로그인</button>
-                        // </Link>
+                         <Link to="/oauth2/authorization/google">
+                            <button onClick={logInHandler} className="btn login" >로그인</button>
+                         </Link>
                         // <button onClick={logInHandler} className="btn login">로그인</button>
                     }
                 </div>

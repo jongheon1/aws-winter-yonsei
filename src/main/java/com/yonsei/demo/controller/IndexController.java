@@ -13,7 +13,7 @@ public class IndexController {
     //private final PostsService postsService;
     private final HttpSession httpSession;
 
-    @GetMapping("/login")
+    @GetMapping("/loginTest")
     public String index(Model model) {
         //model.addAttribute("posts", postsService.findAllDesc());
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
