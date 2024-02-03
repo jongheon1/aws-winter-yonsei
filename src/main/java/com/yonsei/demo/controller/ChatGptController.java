@@ -16,8 +16,8 @@ public class ChatGptController {
         return chatGptService.chat(prompt);
     }
 
-    @PostMapping("/summary")
-    public String summary(@RequestBody String prompt){
+    @GetMapping("/summary")
+    public String summary(@RequestParam("prompt") String prompt){
         return chatGptService.summary(prompt);
     }
 
