@@ -2,6 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
+	/**
+     * vue-project를 build하기 위한 설정
+     * - node gradle plugin 추가
+     */
+    id 'com.github.node-gradle.node' version '3.2.1'
 }
 
 ext {
@@ -20,6 +25,11 @@ java {
 
 repositories {
     mavenCentral()
+	 /**
+     * vue-project를 build하기 위한 설정
+     * - node gradle 추가
+     */
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -109,37 +119,107 @@ sourceSets {
 	}
 }
 
-processResources { dependsOn "copyReactBuildFiles" }
+// processResources { dependsOn "copyReactBuildFiles" }
 
-task installReact(type: Exec) {
-	workingDir "$frontendDir/react"
-	inputs.dir "$frontendDir/react"
-	group = BasePlugin.BUILD_GROUP
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine "npm.cmd", "audit", "fix"
-		commandLine 'npm.cmd', 'install' }
-	else {
-		commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
-	}
+// task installReact(type: Exec) {
+// 	workingDir "$frontendDir/react"
+// 	inputs.dir "$frontendDir/react"
+// 	group = BasePlugin.BUILD_GROUP
+// 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+// 		commandLine "npm.cmd", "audit", "fix"
+// 		commandLine 'npm.cmd', 'install' }
+// 	else {
+// 		commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
+// 	}
+// }
+
+// task buildReact(type: Exec) {
+// 	dependsOn "installReact"
+// 	workingDir "$frontendDir/react"
+// 	inputs.dir "$frontendDir/react"
+// 	group = BasePlugin.BUILD_GROUP
+// 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+// 		commandLine "npm.cmd", "run-script", "build"
+// 	} else {
+// 		commandLine "npm", "run-script", "build"
+// 	}
+// }
+
+// task copyReactBuildFiles(type: Copy) {
+// 	dependsOn "buildReact"
+// 	from "$frontendDir/build"
+// 	into "$projectDir/src/main/resources/static"
+// }
+
+/* Svelte 빌드 설정 */
+
+/**
+ * vue-project를 build하기 위한 설정
+ * - node gradle plugin의 node 설정 추가
+ */
+node {
+	/**
+     * 특정 Node.js 버전을 다운로드 및 설치 할 지 여부
+     * true: 다운로드 및 설치
+     * false: 전역으로 설치된 Node.js 사용함.
+     */
+    download = false
+    
+    /**
+     * download가 true일 경우에만 사용
+     * version에 명시한 버전으로 Node.js 다운로드 및 설치
+     * workDir에 설치됨
+     */
+    // version = '18.12.1'
+    // npmVersion = '9.2.0'
+    // npmInstallCommand = 'install'
+    
+    /**
+     * svelte 프로젝트 디렉토리 위치
+     * package.json 파일과 node_modules 디렉토리가 있는 곳
+     * "저는 프로젝트 Root 아래 svelte 프로젝트를 생성하였으므로 아래와 같이 주소를 작성해주었습니다."
+     */
+    nodeProjectDir = file("${frontendDir}/svelte")
 }
 
-task buildReact(type: Exec) {
-	dependsOn "installReact"
-	workingDir "$frontendDir/react"
-	inputs.dir "$frontendDir/react"
-	group = BasePlugin.BUILD_GROUP
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine "npm.cmd", "run-script", "build"
-	} else {
-		commandLine "npm", "run-script", "build"
-	}
+/**
+ * vue-project를 build하기 위한 설정
+ * - vue-project의 기존 빌드 결과물을 제거하기 위한 task
+ */
+task deleteSvelteBuildFiles(type: Delete) {
+    delete "src/main/resources/static/dist", "${project.projectDir}/svelte/node_modules"
 }
 
-task copyReactBuildFiles(type: Copy) {
-	dependsOn "buildReact"
-	from "$frontendDir/build"
-	into "$projectDir/src/main/resources/static"
+/**
+ * vue-project를 build하기 위한 설정
+ * - vue-project를 빌드하기 위한 npm build task
+ *
+ * dependsOn에 'deleteVueBuildFiles', 'npmInstall' task 정보를 지정하였으므로
+ * npmBuild task는 위 두 task에 의존한다는 것이고,
+ * npmBuild가 실행되기 전 위 두 task가 차례대로 먼저 실행됩니다.
+ * deleteVueBuildFiles task는 빌드 결과물을 제거하기 위하여 별도 만든 task이고,
+ * npmInstall task는 node plugin에서 제공하는 task입니다.
+ */
+task npmBuild(type: NpmTask, dependsOn: ['deleteSvelteBuildFiles', 'npmInstall']) {
+    args = ["run", "build"]
 }
+
+/**
+ * vue-project를 build하기 위한 설정
+ * node gradle에서 제공하는 npmInstall task를 어느 시점에 실행시켜 줄지 지정해주는 것입니다.
+ * "gradle build 시 수행되는 processResources task가 실행되기 전에 npmBuild task를 실행하라"
+ *
+ * 그리고 npmBuild task의 의존으로 deleteVueBuildFiles, npmInstall task가 있으므로,
+ * "npmBuild task가 실행하기 전에 deleteVueBuildFiles, npmInstall task를 순서대로 실행하라."
+ *
+ * 정리한 task 실행 순서는
+ * 1) deleteVueBuildFiles
+ * 2) npmInstall
+ * 3) npmBuild
+ * 4) processResources
+ * 입니다.
+ */
+processResources.dependsOn 'npmBuild'
 
 dependencyManagement {
 	imports {
