@@ -29,7 +29,7 @@ public class SecurityConfig {
                 )
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/**","/routes/**","/utils/**","/pages/**","/constants/**","/config/**","/components/**","/api/**", "/css/**", "/images/**", "/js/**").permitAll()
                                 .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                                 .anyRequest().authenticated()
                 )
