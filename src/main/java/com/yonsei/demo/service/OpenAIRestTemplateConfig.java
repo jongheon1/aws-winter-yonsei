@@ -1,4 +1,4 @@
-package com.yonsei.demo.controller;
+package com.yonsei.demo.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
