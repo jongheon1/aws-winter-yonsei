@@ -100,7 +100,7 @@ dependencies {
 	*/
 }
 
-def frontendDir = "$projectDir/frontend"
+def frontendDir = "$projectDir/src/main/frontend"
 
 sourceSets {
 	main {
