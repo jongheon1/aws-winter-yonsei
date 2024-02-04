@@ -7,11 +7,11 @@ import com.yonsei.demo.service.ChatGptService;
 
 @RestController
 @RequestMapping("/gpt")
+@RequiredArgsConstructor
 public class ChatGptController {
-    @Autowired
-    private ChatGptService chatGptService;
+    private final ChatGptService chatGptService;
 
-    @GetMapping("/chat")
+    @GetMapping("/gen")
     public String chat(@RequestParam("prompt") String prompt) {
         return chatGptService.chat(prompt);
     }
