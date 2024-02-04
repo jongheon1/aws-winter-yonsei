@@ -24,7 +24,7 @@ spring:
             - oauth
             - API-KEY
 openai:
-    api-key: "API-KEY"
+    api-key: "API-Key"
     model: gpt-3.5-turbo
     api-url: https://api.openai.com/v1/chat/completions
     chat-system-prompt: "This model provides precise answers to legal proposal-related questions 
