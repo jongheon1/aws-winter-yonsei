@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ChatBot from "../chatbot/ChatBot";
 
 function EgovFooter() {
     return (
@@ -22,6 +23,7 @@ function EgovFooter() {
                     </Link>
                 </div>
             </div>
+            <ChatBot/>
         </div>
     );
 }
