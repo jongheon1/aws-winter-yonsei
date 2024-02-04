@@ -114,8 +114,8 @@ sourceSets {
 processResources { dependsOn "copyReactBuildFiles" }
 
 task installReact(type: Exec) {
-	workingDir "$frontendDir"
-	inputs.dir "$frontendDir"
+	workingDir "$frontendDir/react"
+	inputs.dir "$frontendDir/react"
 	group = BasePlugin.BUILD_GROUP
 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
 		commandLine "npm.cmd", "audit", "fix"
