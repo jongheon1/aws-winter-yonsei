@@ -27,6 +27,8 @@ openai:
     api-key: "API-Key"
     model: gpt-3.5-turbo
     api-url: https://api.openai.com/v1/chat/completions
+    chat-model: ft:gpt-3.5-turbo-1106:verfit::8mMAWYWi
+    sum-model: ft:gpt-3.5-turbo-1106:verfit::8mIJOkN0
     chat-system-prompt: "This model provides precise answers to legal proposal-related questions 
     using both the user-provided legal proposals and questions It processes dual inputs(question, legal proposal), 
     ensuring accurate, context-relevant responses in Korean. External references include a '(출처: [Source Name])'
