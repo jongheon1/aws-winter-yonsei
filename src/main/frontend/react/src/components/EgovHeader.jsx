@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import * as EgovNet from 'api/egovFetch';
@@ -6,26 +6,64 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 import CODE from 'constants/code';
 import { getSessionItem, setSessionItem } from 'utils/storage';
+import axios from "axios";
 
 function EgovHeader() {
     console.group("EgovHeader");
     console.log("[Start] EgovHeader ------------------------------");
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        axios.get('/user/isLogin')
+            .then(response => {
+                // 성공적으로 응답을 받았을 때 실행되는 부분
+                const loginResponse = response.data;
+
+                if (loginResponse) {
+                    setIsLoggedIn(true);
+                    console.log('사용자는 로그인 상태입니다.');
+                    // 로그인 상태에 따른 처리를 추가할 수 있음
+                } else {
+                    console.log('사용자는 로그인 상태가 아닙니다.');
+                    // 로그인 상태에 따른 처리를 추가할 수 있음
+                }
+            })
+            .catch((err) => {
+                window.location.href = "/login";
+
+            });
+    }, []);
+
     const sessionUser = getSessionItem('loginUser');
     const sessionUserId = sessionUser?.id;
-    const sessionUserName = sessionUser?.name;
+    //const sessionUserName = sessionUser?.name;
     const sessionUserSe = sessionUser?.userSe;
+
+    const [sessionUserName, setUserName] = useState("");
+    useEffect(() => {
+        axios.get('/user/name')
+            .then(response => {
+                // 서버에서 성공적으로 사용자 이름을 가져왔을 때 실행되는 부분
+                const nameResponse = response.data;
+                setUserName(nameResponse);
+                console.log('사용자 이름:', nameResponse);
+                // 가져온 사용자 이름에 대한 처리를 추가할 수 있음
+            })
+            .catch((err) => {
+                console.error('사용자 이름을 가져오는 데 실패했습니다.', err);
+            });
+    }, []);
 
     const navigate = useNavigate();
 
     const logInHandler = async () => { // 로그인 정보 없을 시
         window.location.href = '/oauth2/authorization/google';
         //navigate('/oauth2/authorization/google');
-		// PC와 Mobile 열린메뉴 닫기
-		// document.querySelector('.all_menu.WEB').classList.add('closed');
+        // PC와 Mobile 열린메뉴 닫기
+        // document.querySelector('.all_menu.WEB').classList.add('closed');
         // document.querySelector('.btnAllMenu').classList.remove('active');
         // document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
-		// document.querySelector('.all_menu.Mobile').classList.add('closed');
+        // document.querySelector('.all_menu.Mobile').classList.add('closed');
     }
     const logOutHandler = () => {// 로그인 정보 존재할 때
         const logOutUrl = '/auth/logout';
@@ -44,11 +82,11 @@ function EgovHeader() {
                     setSessionItem('jToken', null);
                     window.alert("로그아웃되었습니다!");
                     navigate(URL.MAIN);
-					// PC와 Mobile 열린메뉴 닫기
-					document.querySelector('.all_menu.WEB').classList.add('closed');
-	                document.querySelector('.btnAllMenu').classList.remove('active');
-	                document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
-					document.querySelector('.all_menu.Mobile').classList.add('closed');
+                    // PC와 Mobile 열린메뉴 닫기
+                    document.querySelector('.all_menu.WEB').classList.add('closed');
+                    document.querySelector('.btnAllMenu').classList.remove('active');
+                    document.querySelector('.btnAllMenu').title = '전체메뉴 닫힘';
+                    document.querySelector('.all_menu.Mobile').classList.add('closed');
                 }
             }
         );
@@ -84,7 +122,7 @@ function EgovHeader() {
                 {/* <!-- PC web에서 보여지는 영역 --> */}
                 <div className="user_info">
                     {/* 로그아웃 : 로그인 정보 있을때 */}
-                    {sessionUserId &&
+                    {isLoggedIn &&
                         <>
                             <span className="person">{sessionUserName} </span> 님이, 관리자로 로그인하셨습니다.
                             <a href="/oauth2/authorization/google">
@@ -94,7 +132,7 @@ function EgovHeader() {
                         </>
                     }
                     {/* 로그인 : 로그인 정보 없을 때 */}
-                    {!sessionUserId &&
+                    {!isLoggedIn &&
                         <a href="/oauth2/authorization/google">
                             <button className="btn login">로그인</button>
                         </a>
@@ -147,7 +185,7 @@ function EgovHeader() {
                                 <li><NavLink to={URL.ADMIN_USAGE} className={({ isActive }) => (isActive ? "cur" : "")}>게시판사용관리</NavLink></li>
                                 <li><NavLink to={URL.ADMIN_NOTICE} className={({ isActive }) => (isActive ? "cur" : "")}>공지사항관리</NavLink></li>
                                 <li><NavLink to={URL.ADMIN_GALLERY} className={({ isActive }) => (isActive ? "cur" : "")}>사이트갤러리관리</NavLink></li>
-								<li><NavLink to={URL.ADMIN_MANAGER} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리자 암호변경</NavLink></li>
+                                <li><NavLink to={URL.ADMIN_MANAGER} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리자 암호변경</NavLink></li>
                             </ul>
                         </div>
                     }
@@ -157,7 +195,7 @@ function EgovHeader() {
             <div className="all_menu Mobile closed">
                 <div className="user_info_m">
                     {/* 로그아웃 : 로그인 정보 있을때 */}
-                    {sessionUserId &&
+                    {isLoggedIn &&
                         <>
                             <span className="person">{sessionUserName} </span>이 로그인하셨습니다.
                             <button onClick={logOutHandler} className="btn logout">로그아웃</button>
@@ -165,7 +203,7 @@ function EgovHeader() {
                     }
 
                     {/* 로그인 : 로그인 정보 없을 때 */}
-                    {!sessionUserId &&
+                    {!isLoggedIn &&
                         <button onClick={logInHandler} className="btn login">로그인</button>
                     }
                     <button className="btn noscript close" type="button">전체메뉴 닫기</button>
@@ -214,7 +252,7 @@ function EgovHeader() {
                                     <li><NavLink to={URL.ADMIN_USAGE} className={({ isActive }) => (isActive ? "cur" : "")}>게시판사용관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_NOTICE} className={({ isActive }) => (isActive ? "cur" : "")}>공지사항관리</NavLink></li>
                                     <li><NavLink to={URL.ADMIN_GALLERY} className={({ isActive }) => (isActive ? "cur" : "")}>사이트갤러리관리</NavLink></li>
-									<li><NavLink to={URL.ADMIN_MANAGER} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리자 암호변경</NavLink></li>
+                                    <li><NavLink to={URL.ADMIN_MANAGER} className={({ isActive }) => (isActive ? "cur" : "")}>사이트관리자 암호변경</NavLink></li>
                                 </ul>
                             </div>
                         </>
