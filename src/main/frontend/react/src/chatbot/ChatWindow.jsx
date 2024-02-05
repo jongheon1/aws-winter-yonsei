@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from "react";
+import '../css/chatbot.css'
 
 const ChatWindow = ({ messages, setMessages }) => {
     // 여기에는 메시지를 표시하고 입력을 처리하는 로직을 추가합니다.
@@ -40,52 +41,30 @@ const ChatWindow = ({ messages, setMessages }) => {
     }, [messages]);
 
     return (
-        <div style={{
-            border: '1px solid black',
-            padding: '10px',
-            width: '300px',
-            height: '400px',
-            overflowY: 'auto',
-            position: 'relative', // 대화창 내에서 절대 위치를 위한 기준 설정
-        }}>
-            {/* 메시지 표시 */}
-            {messages.map((message, index) => (
-                <div
-                    key={index}
-                    style={{
-                        textAlign: message.type === 'user' ? 'right' : 'left',
-                        padding: '5px',
-                        margin: '5px 0',
-                        backgroundColor: message.type === 'user' ? '#add8e6' : '#d3d3d3',
-                        color: 'black',
-                        borderRadius: '10px',
-                        maxWidth: '80%',
-                        marginLeft: message.type === 'user' ? '20%' : '0',
-                        marginRight: message.type === 'bot' ? '20%' : '0'
-                    }}
-                >
-                    {message.text}
-                </div>
-            ))}
-
-            {/* 메시지 입력 및 전송 로직 */}
-            <form
-                onSubmit={handleMessageSubmit}
-                style={{
-                    position: 'absolute', // 입력 폼을 대화창 하단에 고정
-                    bottom: '10px', // 하단 가장자리에서부터의 거리
-                    right: '10px', // 오른쪽 가장자리에서부터의 거리
-                }}
-            >
+        <div className="chat-window">
+            <div className="chat-title">채팅봇</div>
+            <div className="chat-content"> {/* 채팅 내용을 위한 컨테이너 추가 */}
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`message-container ${message.type === 'user' ? 'message-user-container' : 'message-bot-container'}`}
+                    >
+                        <div className={`message ${message.type === 'user' ? 'message-user' : 'message-bot'}`}>
+                            {message.text}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <form onSubmit={handleMessageSubmit} className="chat-input">
                 <input
                     type="text"
                     name="message"
                     placeholder="Type a message..."
-                    style={{ marginRight: '5px' }} // 버튼과의 간격 조정
                 />
                 <button type="submit">Send</button>
             </form>
         </div>
+
     );
 
 };
