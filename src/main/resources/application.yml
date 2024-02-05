@@ -23,6 +23,22 @@ spring:
         include:
             - oauth
             - API-KEY
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: hajinkids3106
+        password: ${mail.password}
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    timeout: 5000 #(ms)
+                    starttls:
+                        enable: true
+                    debug: true
+                    ssl:
+                        enable:
+
 openai:
     api-key: "API-Key"
     model: gpt-3.5-turbo
@@ -42,6 +58,7 @@ openai:
     user-provided legal proposal, strictly adhering to the details in the text and avoiding 
     any assumptions or external information. The 'assistant' will summarize the main 
     contents of the legal proposal in 'three steps(1. 제안 이유, 2. 주요 내용, 3. 세부 내용)' in Korean."
+
 logging:
     level:
         team:
