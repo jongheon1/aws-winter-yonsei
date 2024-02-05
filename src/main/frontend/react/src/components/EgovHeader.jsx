@@ -138,15 +138,6 @@ function EgovHeader() {
                             <li><NavLink to={URL.SUPPORT_APPLY} className={({ isActive }) => (isActive ? "cur" : "")}>서비스 신청</NavLink></li>
                         </ul>
                     </div>
-                    <div className="col">
-                        <h3>알림마당</h3>
-                        <ul>
-                            <li><NavLink to={URL.INFORM_DAILY}>오늘의 행사</NavLink></li>
-                            <li><NavLink to={URL.INFORM_WEEKLY} className={({ isActive }) => (isActive ? "cur" : "")}>금주의 행사</NavLink></li>
-                            <li><NavLink to={URL.INFORM_NOTICE} className={({ isActive }) => (isActive ? "cur" : "")}>공지사항</NavLink></li>
-                            <li><NavLink to={URL.INFORM_GALLERY} className={({ isActive }) => (isActive ? "cur" : "")}>사이트 갤러리</NavLink></li>
-                        </ul>
-                    </div>
                     {sessionUserSe ==='USR' &&
                         <div className="col">
                             <h3>사이트관리</h3>
