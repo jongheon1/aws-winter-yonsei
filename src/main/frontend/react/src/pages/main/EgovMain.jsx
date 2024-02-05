@@ -125,7 +125,7 @@ function EgovMain(props) {
                         </li>
                     </ul>
                 </div>
-                <div className="colbox">
+                <div className="colbox" style={{ marginBottom : "20px" }}>
                     <div className="left_col">
                         <div className="mini_board">
                             <ul className="tab">
