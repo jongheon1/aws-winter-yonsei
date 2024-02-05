@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from "react";
-import '../css/chatbot.css'
+import axios from "axios";
+import '../css/chatbot.css';
 
 const ChatWindow = ({ messages, setMessages }) => {
     // 여기에는 메시지를 표시하고 입력을 처리하는 로직을 추가합니다.
@@ -12,7 +13,7 @@ const ChatWindow = ({ messages, setMessages }) => {
 
             const response = await sendMessageToBackend(inputMessage);
             if (!response.error) {
-                setMessages(messages => [...messages, { type: 'bot', text: response.message }]); // 백엔드 응답 추가
+                setMessages(messages => [...messages, { type: 'bot', text: response }]); // 백엔드 응답 추가
             } else {
                 // 오류 메시지 처리
                 setMessages(messages => [...messages, { type: 'bot', text: 'Sorry, there was an error processing your message.' }]);
@@ -20,15 +21,15 @@ const ChatWindow = ({ messages, setMessages }) => {
         }
     };
 
-    const BACKEND_URL = 'localhost:8080/chatbot';
+    const BACKEND_URL = 'http://localhost:8080/gpt/gen';
     const sendMessageToBackend = async (message) => {
         try {
-            return {
-                error: null,
-                message: message + " checked"
-            };
-            // const response = await axios.post(BACKEND_URL, { message });
-            // return response.data; // 백엔드에서 반환한 응답
+            // return {
+            //     error: null,
+            //     message: message + " checked"
+            // };
+            const response = await axios.post(BACKEND_URL, { message });
+            return response.data; // 백엔드에서 반환한 응답
         } catch (error) {
             console.error('Error sending message:', error);
             return { error: 'Failed to send message' }; // 오류 처리

@@ -11,14 +11,15 @@ import com.yonsei.demo.service.ChatGptService;
 public class ChatGptController {
     private final ChatGptService chatGptService;
 
-    @GetMapping("/gen")
-    public String chat(@RequestParam("prompt") String prompt) {
+    @PostMapping("/gen")
+    public String chat(@RequestBody String prompt) {
         return chatGptService.chat(prompt);
     }
 
-    @GetMapping("/summary")
-    public String summary(@RequestParam("prompt") String prompt){
-        return chatGptService.summary(prompt);
+    @PostMapping("/{billsNum}/summary")
+    public String summary(@RequestBody String prompt,
+    @PathVariable final Integer billsNum){
+        return chatGptService.summary(prompt,billsNum);
     }
 
 }
