@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ChatWindow from './ChatWindow'; // ChatWindow 컴포넌트 임포트
+import '../css/chatbot.css'
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false); // 대화 창 표시 상태
@@ -10,13 +11,13 @@ const ChatBot = () => {
     };
 
     return (
-        <div style={{position: 'fixed', bottom: 20, right: 20, zIndex: 1000}}>
+        <div className="chatbot-container">
             {isOpen && (
-                <div style={{ position: 'absolute', bottom: '40px', right: '0px' }}>
+                <div className="chat-window-container">
                     <ChatWindow messages={messages} setMessages={setMessages}/>
                 </div>
             )}
-            <button onClick={toggleChatWindow} style={{width: '100px', cursor: 'pointer', position: 'absolute', bottom: '0px', right: '0px'}}>
+            <button onClick={toggleChatWindow} className="chatbot-button">
                 {isOpen ? 'Close Chat' : 'Open Chat'}
             </button>
         </div>
@@ -24,13 +25,5 @@ const ChatBot = () => {
 
 };
 
-
-const ChatBotIcon = ({ onClick }) => {
-    return (
-        <button onClick={onClick} style={{ cursor: 'pointer' }}>
-            Chat
-        </button>
-    );
-};
 
 export default ChatBot;
