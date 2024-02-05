@@ -41,3 +41,5 @@ out/
 
 # Local database volumn
 db
+
+application.yml
