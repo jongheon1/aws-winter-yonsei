@@ -22,4 +22,10 @@ public class ChatGptController {
         return chatGptService.summary(prompt,billsNum);
     }
 
+    @PostMapping("/{billsNum}/pdfChat")
+    public String pdfChat(@RequestBody String prompt,
+                          @PathVariable final Integer billsNum){
+        return chatGptService.checkChat(prompt,billsNum);
+    }
+
 }

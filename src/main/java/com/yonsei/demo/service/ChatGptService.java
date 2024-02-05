@@ -86,25 +86,37 @@ public class ChatGptService {
         }
     }
 
-    public String checkChat(String prompt) {
-        Document pdfDocument = new Document();
+    public String checkChat(String prompt, Integer billsNum) {
+        Bills bills = billsRepository.findById(billsNum).orElseThrow();
 
-        TextAbsorber textAbsorber = new TextAbsorber();
+        String link = bills.getFile_link();
 
-        pdfDocument.getPages().accept(textAbsorber);
+        try (BufferedInputStream in = new BufferedInputStream(new URL(link).openStream());){
 
-        String extractedText = textAbsorber.getText();
+            Document pdfDocument = new Document(in);
 
-        ChatRequestDto request = new ChatRequestDto(chatModel, prompt, ChatSystemPrompt);
+            TextAbsorber textAbsorber = new TextAbsorber();
 
-        // call the API
-        ChatResponseDto response = restTemplate.postForObject(apiUrl, request, ChatResponseDto.class);
+            pdfDocument.getPages().accept(textAbsorber);
 
-        if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
+            String extractedText = textAbsorber.getText();
+
+            String txt = prompt + "External references include a '(출처:" + extractedText +") citation.";
+
+            ChatRequestDto request = new ChatRequestDto(chatModel, txt, ChatSystemPrompt);
+
+            // call the API
+            ChatResponseDto response = restTemplate.postForObject(apiUrl, request, ChatResponseDto.class);
+
+            if (response == null || response.getChoices() == null || response.getChoices().isEmpty()) {
+                return "No response";
+            }
+
+            // return the first response
+            return response.getChoices().get(0).getMessage().getContent();
+        }
+        catch (IOException ignored) {
             return "No response";
         }
-
-        // return the first response
-        return response.getChoices().get(0).getMessage().getContent();
     }
 }
