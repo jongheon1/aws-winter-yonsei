@@ -3,7 +3,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://ysu-team-002-dev.cnmgd1eiu1rn.ap-northeast-2.rds.amazonaws.com:3306/develop?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&useSSL=false
         username: admin
-        password: gemini02
+        password: "password"
         hikari:
             idleTimeout: 500
             connectionTimeout: 15000
@@ -40,7 +40,7 @@ spring:
                         enable:
 
 openai:
-    api-key: "API-Key"
+    api-key: ${openai.api-key}
     model: gpt-3.5-turbo
     api-url: https://api.openai.com/v1/chat/completions
     chat-model: ft:gpt-3.5-turbo-1106:verfit::8mMAWYWi
