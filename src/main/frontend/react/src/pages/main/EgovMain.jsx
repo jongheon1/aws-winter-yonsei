@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import { fetchSearchResults, fetchKeword } from 'api/search';
 import '../../css/suggestedKeyword.css';
+import axios from 'axios';
 
 function EgovMain(props) {
 
@@ -13,6 +14,7 @@ function EgovMain(props) {
     const [page, setPage] = useState(0);
     const [fineSearch, setFineSearch] = useState(false);
     const navigate = useNavigate();
+    const [docsCount, setDocsCount] = useState(0);
 
     const handleSearch = async (e) => {
         if (e.type === 'click' || e.key === 'Enter') {
@@ -43,7 +45,20 @@ function EgovMain(props) {
         }
     };
 
-
+    // /bills/countAll
+    useEffect(() => {
+        const fetchDocsCount = async () => {
+            try {
+                const response = await axios.get('/bills/countAll');
+                console.log(response.data); // Log the response data to inspect its structure
+                setDocsCount(response.data);
+            } catch (error) {
+                console.error('Error fetching search results:', error);
+            }
+        };
+        fetchDocsCount();
+    }, []);
+    
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
             <div className="c_wrap">
@@ -185,8 +200,14 @@ function EgovMain(props) {
                     </div>
 
                     <div className="right_col">
-                        <iframe src="https://ysu-004.kb.us-east-2.aws.elastic-cloud.com:9243/app/visualize?auth_provider_hint=anonymous1#/edit/92357800-bc4f-11ee-aeaf-7bd8b9fe8b6e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(emptyAsNull:!f),schema:metric,type:count),(enabled:!t,id:'2',params:(excludeIsRegex:!t,field:account_length,includeIsRegex:!t,missingBucket:!f,missingBucketLabel:Missing,order:desc,orderBy:'1',otherBucket:!f,otherBucketLabel:Other,size:15),schema:segment,type:terms)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),detailedTooltip:!t,fittingFunction:linear,grid:(categoryLines:!f),labels:(),legendPosition:right,maxLegendLines:1,palette:(name:default,type:palette),radiusRatio:9,seriesParams:!((circlesRadius:1,data:(id:'1',label:Count),drawLinesBetweenPoints:!t,interpolate:linear,lineWidth:2,mode:stacked,show:!t,showCircles:!t,type:area,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),truncateLegend:!t,type:area,valueAxes:!((id:ValueAxis-1,labels:(filter:!t,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:''),type:value))),title:test,type:area))"
-                        height="100%" width="100%" style={{ borderRadius: "10px", minHeight: "500px" }}></iframe>
+                        <p style={{ textAlign: 'center', 
+                                    padding: "20px",
+                                    fontWight: "500",
+                                    fontSize: "25px"}}>
+                           총 {docsCount} 개의 문서가 색인되어있습니다.
+                        </p>
+                        <iframe src="https://ysu-004.kb.us-east-2.aws.elastic-cloud.com:9243/app/dashboards?auth_provider_hint=anonymous1#/view/c01ec3f0-c53e-11ee-b58b-7bf68dd516e9?embed=true&_g=()"
+                        height="100%" width="100%" style={{ borderRadius: "10px", minHeight: "900px" }}></iframe>
                     </div>
                     <br />
                 </div>
