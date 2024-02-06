@@ -44,3 +44,4 @@ db
 
 application.yml
 application-oauth.yml
+node_modules/
