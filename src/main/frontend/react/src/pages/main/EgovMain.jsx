@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import { fetchSearchResults, fetchKeword } from 'api/search';
+import '../../css/suggestedKeyword.css';
 
 function EgovMain(props) {
 
+    const [suggestedKeywords, setSuggestedKeywords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [count, setCount] = useState(0);
     const [sort, setSort] = useState('RANK');
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
-
-    const handleInputChange = (e) => {
-      setSearchQuery(e.target.value);
-    };
 
     const handleSearch = async (e) => {  
         if (e.type === 'click' || e.key === 'Enter') {
@@ -28,6 +26,25 @@ function EgovMain(props) {
             // }
         }
     };
+    const handleInputChange = async (e) => {
+        setSearchQuery(e.target.value);
+
+        if (searchQuery.length > 1) {
+            try {
+                const suggested = await fetchKeword(searchQuery);
+                console.log(suggested);
+                setSuggestedKeywords(suggested);
+                document.querySelector('.suggested-keywords').classList.add('active');
+            } catch (error) {
+                console.error('Error fetching suggested keywords:', error);
+                setSuggestedKeywords([]);
+            }
+        } else {
+            setSuggestedKeywords([]);
+            document.querySelector('.suggested-keywords').classList.remove('active');
+        }
+    };
+
 
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
@@ -51,7 +68,7 @@ function EgovMain(props) {
                                     type="text" name="" placeholder="검색어를 입력해주세요"
                                     value={searchQuery}
                                     onChange={handleInputChange}
-                                    onKeyDown={(e) => handleSearch(e, page, sort)} 
+                                    onKeyDown={(e) => handleSearch(e, page, sort)}
                                 />
                                 <button
                                     type="button"
@@ -60,18 +77,30 @@ function EgovMain(props) {
                             </span>
                         </li>
                         <li>
-                            <button 
-                            className="btn btn_blue_h46 pd35"
-                            onClick={(e) => handleSearch(e, page, sort)}
-                            >검색</button>
+                            <button
+                                className="btn btn_blue_h46 pd35"
+                                onClick={(e) => handleSearch(e, page, sort)}
+                            >검색
+                            </button>
                         </li>
                     </ul>
                 </div>
-                <div className="colbox" style={{ marginBottom : "20px" }}>
+                {suggestedKeywords &&
+                    <ul className="suggested-keywords">
+                        {suggestedKeywords.map((item, index) => (
+                            <>{item &&
+                                <li key={index} onClick={() => setSearchQuery(item.keyword)}>
+                                    {item.keyword}
+                                </li>
+                            }</>
+                        ))}
+                    </ul>
+                }
+                <div className="colbox" style={{marginBottom: "20px"}}>
                     <div className="left_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><a className={sort==="RANK" ? "on" : ""} onClick={async (e) => {
+                                <li><a className={sort === "RANK" ? "on" : ""} onClick={async (e) => {
                                     setSort("RANK")
                                     await handleSearch(e, page, "RANK")
                                 }}>정확도순</a></li>
