@@ -5,12 +5,10 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 
 function EgovMain(props) {
-    console.group("EgovMain");
-    console.log("[Start] EgovMain ------------------------------");
-    console.log("EgovMain [props] : ", props);
 
+    console.log("[props] : ", props);
     const location = useLocation();
-    console.log("EgovMain [location] : ", location);
+    console.log("[location] : ", location);
 
 	// eslint-disable-next-line no-unused-vars
     const [noticeBoard, setNoticeBoard] = useState();
@@ -152,6 +150,12 @@ function EgovMain(props) {
                         </div>
 
                         <div className="banner">
+                            {/* {searchResults.map((result) => (
+                                <Link key={result.id} to={result.url} className={`bn${result.status}`}>
+                                    <strong>{result.billNumber}</strong>
+                                    <span>{result.title}<br />{result.statusDescription}</span>
+                                </Link>
+                            ))} */}
                             <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />초록색은 승인된법안</span>
