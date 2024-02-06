@@ -30,7 +30,7 @@ function EgovHeader() {
                     {/* 로그아웃 : 로그인 정보 있을때 */}
                     {isLoggedIn &&
                         <>
-                            <span className="person">{sessionUserName} </span> 님이, 관리자로 로그인하셨습니다.
+                            <span className="person">{sessionUserName} </span>
                             <a href="/logout">
                                 <button className="btn logout">로그아웃</button>
                             </a>
