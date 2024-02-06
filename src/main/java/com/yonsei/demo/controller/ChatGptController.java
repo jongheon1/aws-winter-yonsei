@@ -17,9 +17,9 @@ public class ChatGptController {
     }
 
     @PostMapping("/{billsNum}/summary")
-    public String summary(@RequestBody String prompt,
+    public String summary(
     @PathVariable final Integer billsNum){
-        return chatGptService.summary(prompt,billsNum);
+        return chatGptService.summary(billsNum);
     }
 
     @PostMapping("/{billsNum}/pdfChat")

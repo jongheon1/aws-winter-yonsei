@@ -58,7 +58,7 @@ public class ChatGptService {
         return response.getChoices().get(0).getMessage().getContent();
     }
 
-    public String summary(String prompt, Integer billsNum){
+    public String summary(Integer billsNum){
         Bills bills = billsRepository.findById(billsNum).orElseThrow();
 
         String link = bills.getFile_link();
@@ -70,8 +70,7 @@ public class ChatGptService {
             pdfDocument.getPages().accept(textAbsorber);
 
             String extractedText = textAbsorber.getText();
-            String test = prompt + extractedText;
-            SummaryRequestDto request = new SummaryRequestDto(sumModel, test, SumSystemPrompt);
+            SummaryRequestDto request = new SummaryRequestDto(sumModel, extractedText, SumSystemPrompt);
 
             // call the API
             ChatResponseDto response = restTemplate.postForObject(apiUrl, request, ChatResponseDto.class);
