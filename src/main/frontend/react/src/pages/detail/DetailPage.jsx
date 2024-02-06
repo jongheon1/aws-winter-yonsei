@@ -124,7 +124,7 @@ const DetailPage = () => {
             </div>
 
             {/* PDF 뷰어 구성 부분은 여기에 추가 */}
-            <div>
+            <div style={{width: "100%"}}>
                 <div className="webviewer" ref={viewer} style={{height: "100vh"}}></div>
             </div>
         </div>
