@@ -23,6 +23,7 @@ import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 �
 import initPage from 'js/ui';
 import DetailPage from "pages/detail/DetailPage";
 import UserInfo from "../pages/user/userInfo";
+import SearchResult from "../pages/search/SearchResult";
 
 const RootRoutes = () => {
   //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
@@ -46,8 +47,6 @@ const RootRoutes = () => {
       }
     });
 
-    console.log("------------------------------jwtAuthentication [End]");
-    console.groupEnd("jwtAuthentication");
   }, []);
 
   //시스템관리 메뉴인 /admin/으로 시작하는 URL은 모두 로그인이 필요하도록 코드추가(아래)
@@ -102,6 +101,7 @@ const SecondRoutes = () => {
                 onChangeLogin={(user) => setLoginVO(user)}
               />}/>
           <Route path={URL.USERINFO} element={<UserInfo/>}/>
+          <Route path="/searchResult" element={<SearchResult/>} />
 
         {/* ERROR */}
         <Route path={URL.ERROR} element={<EgovError />} />
