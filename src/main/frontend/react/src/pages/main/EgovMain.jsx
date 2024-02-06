@@ -9,7 +9,6 @@ function EgovMain(props) {
     console.log("[props] : ", props);
     const location = useLocation();
     console.log("[location] : ", location);
-
 	// eslint-disable-next-line no-unused-vars
     const [noticeBoard, setNoticeBoard] = useState();
 	// eslint-disable-next-line no-unused-vars
@@ -20,6 +19,8 @@ function EgovMain(props) {
     const [searchResults, setSearchResults] = useState([]);
     const [keword, setKeword] = useState('');
     const [count, setCount] = useState(0);
+    const [sort, setSort] = useState('RANK');
+    const [page, setPage] = useState(0);
 
     const handleInputChange = (e) => {
       setSearchQuery(e.target.value);
@@ -100,7 +101,20 @@ function EgovMain(props) {
         retrieveList();
     }, [retrieveList]);
 
+    const handleSearch = async (e) => {  
+        if (e.type === 'click' || e.key === 'Enter') {
+            try {
+              const data = await fetchSearchResults(searchQuery, page, sort);
+              setSearchResults(data.result);
+              setCount(data.total);
+            } catch (error) {
+              console.error('Error fetching search results:', error);
+            }
+        }
+    };
     
+    console.log("[searchResults] : ", searchResults);
+    console.log("[count] : ", count);
 
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
@@ -123,25 +137,20 @@ function EgovMain(props) {
                                 <input 
                                     type="text" name="" placeholder="검색어를 입력해주세요"
                                     value={searchQuery}
-                                    onChange={handleInputChange()}
-                                    onKeyDown={(e) => {}}
+                                    onChange={handleInputChange}
+                                    onKeyDown={(e) => handleSearch(e)} 
                                 />
                                 <button 
                                     type="button"
-                                    onClick={() => {
-                                        fetchSearchResults("sns", "title", "1", "10")
-                                            .then((response) => {
-                                                searchResults = response;
-                                            })
-                                            .catch((error) => {
-                                                console.error("error : ", error);
-                                            });
-                                    }}
+                                    onClick={(e) => handleSearch(e)}
                                 >조회</button>
                             </span>
                         </li>
                         <li>
-                            <Link to={URL.SUPPORT_DOWNLOAD_CREATE} className="btn btn_blue_h46 pd35">검색</Link>
+                            <button 
+                            className="btn btn_blue_h46 pd35"
+                            onClick={(e) => handleSearch(e)}
+                            >검색</button>
                         </li>
                     </ul>
                 </div>
@@ -149,40 +158,34 @@ function EgovMain(props) {
                     <div className="left_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><a href="#default" className="on">정확도순</a></li>
-                                <li><a href="#latest">최신순</a></li>
+                                <li><a className={sort==="RANK" ? "on" : ""} onClick={() => setSort("RANK")}>정확도순</a></li>
+                                <li><a className={sort==="DATE" ? "on" : ""} onClick={() => setSort("DATE")}>최신순</a></li>
                                 {/* <li> 총 {kesword} </li> */}
                                 <li>
                                     <div style={{display: count > 0 ? "block" : "none"}}>총 {count} 개의 검색결과</div>
                                 </li>
                             </ul>
-                            <div className="list">
-                                <div className="notice">
-                                    <h2 className="blind">공지사항</h2>
-                                    <ul>
-                                        {noticeListTag}
-                                    </ul>
-                                    {/* <Link to={URL.INFORM_NOTICE} className="more">더보기</Link> */}
-                                </div>
-
-                                <div className="gallary">
-                                    <h2 className="blind">갤러리</h2>
-                                    <ul>
-                                        {gallaryListTag}
-                                    </ul>
-                                    <Link to={URL.INFORM_GALLERY} className="more">더보기</Link>
-                                </div>
-                            </div>
+                            <ul className="navigate">
+                                <li>l- </li>
+                                <li>{page}</li>
+                                <li> -l</li>
+                            </ul>
                         </div>
 
                         <div className="banner">
-                            {/* {searchResults.map((result) => (
-                                <Link key={result.id} to={result.url} className={`bn${result.status}`}>
-                                    <strong>{result.billNumber}</strong>
-                                    <span>{result.title}<br />{result.statusDescription}</span>
+                            {searchResults.map((result) => (
+                                <Link to={`/DetailPage/${result.bill_no}`} className={`bn${result.status ?? 3}`}>
+                                    <strong>{result.title}</strong>
+                                    <span>{result.date}<br />{result.speaker}</span>
                                 </Link>
-                            ))} */}
-                            <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
+                            ))}
+                            {/* 
+                                if there are no search results, display a message
+                            */}
+                            {searchResults.length === 0 && (
+                                <p style={{ alignContent: 'center' }}>검색 결과가 없습니다.</p>
+                            )}
+                            {/* <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />초록색은 승인된법안</span>
                             </Link>
@@ -193,14 +196,13 @@ function EgovMain(props) {
                             <Link to={URL.SUPPORT_DOWNLOAD} className="bn3">
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />회색은 계류법안</span>
-                            </Link>
-                            <Link to={`/detailPage/${2015318}`}>클릭</Link>
+                            </Link> */}
                         </div>
                     </div>
 
                     <div className="right_col">
                         <iframe src="https://ysu-004.kb.us-east-2.aws.elastic-cloud.com:9243/app/visualize?auth_provider_hint=anonymous1#/edit/92357800-bc4f-11ee-aeaf-7bd8b9fe8b6e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(filters:!(),linked:!f,query:(language:kuery,query:''),uiState:(),vis:(aggs:!((enabled:!t,id:'1',params:(emptyAsNull:!f),schema:metric,type:count),(enabled:!t,id:'2',params:(excludeIsRegex:!t,field:account_length,includeIsRegex:!t,missingBucket:!f,missingBucketLabel:Missing,order:desc,orderBy:'1',otherBucket:!f,otherBucketLabel:Other,size:15),schema:segment,type:terms)),params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),detailedTooltip:!t,fittingFunction:linear,grid:(categoryLines:!f),labels:(),legendPosition:right,maxLegendLines:1,palette:(name:default,type:palette),radiusRatio:9,seriesParams:!((circlesRadius:1,data:(id:'1',label:Count),drawLinesBetweenPoints:!t,interpolate:linear,lineWidth:2,mode:stacked,show:!t,showCircles:!t,type:area,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),truncateLegend:!t,type:area,valueAxes:!((id:ValueAxis-1,labels:(filter:!t,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:''),type:value))),title:test,type:area))"
-                        height="100%" width="100%" style={{ borderRadius: "10px", minHeight: "400px" }}></iframe>
+                        height="100%" width="100%" style={{ borderRadius: "10px", minHeight: "500px" }}></iframe>
                     </div>
                     <br />
                 </div>

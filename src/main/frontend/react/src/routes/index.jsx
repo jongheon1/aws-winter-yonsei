@@ -117,8 +117,7 @@ const SecondRoutes = () => {
         <Route path={"/DetailPage/:id"} element={<DetailPage />} />
 
       </Routes>
-      <EgovFooter />
-]      
+      <EgovFooter />      
     </>
   )
   
