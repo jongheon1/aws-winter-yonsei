@@ -77,7 +77,7 @@ const DetailPage = () => {
 
     return (
         <div className="detail-page">
-            <h1 className="detail-page-title">{bill.id}</h1>
+            <h1 className="detail-page-title">{bill.name}</h1>
             <div className="bill-info">
                 <h2 className="bill-info-title">법안 정보</h2>
                 <div className="bill-info-detail">
