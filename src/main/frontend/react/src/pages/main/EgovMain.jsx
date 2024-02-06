@@ -19,7 +19,6 @@ function EgovMain(props) {
     const handleSearch = async (e, page, sort) => {  
         if (e.type === 'click' || e.key === 'Enter') {
             try {
-                // navigate(`/searchResult?query=${searchQuery}&page=0`);
               const data = await fetchSearchResults(searchQuery, page, sort);
               setSearchResults(data.result);
               setCount(data.total);
@@ -76,7 +75,11 @@ function EgovMain(props) {
                         </li>
                         <li>
                             {/* toggle */}
-                            
+                            <button
+                                className="btn btn_blue_h46 pd35"
+                                onClick={() => navigate(`/searchResult?query=${searchQuery}&page=0`)}>
+                                    상세검색
+                                </button>
                         </li>
                     </ul>
                 </div>
@@ -157,7 +160,7 @@ function EgovMain(props) {
                                 if there are no search results, display a message
                             */}
                             {searchResults.length === 0 && (
-                                <p style={{ textAlign: 'center' }}>검색 결과가 없습니다.</p>
+                                <p style={{ textAlign: 'center', marginTop: "50px"}}>검색 결과가 없습니다.</p>
                             )}
                         </div>
                     </div>

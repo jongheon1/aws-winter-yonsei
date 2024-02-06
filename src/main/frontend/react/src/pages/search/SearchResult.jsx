@@ -47,7 +47,9 @@ function SearchResult() {
             {searchResults.map((result) => (
                 <Link to={`/DetailPage/${result.bill_no}`} className={`bn${result.status ?? 3}`}>
                     <strong>{result.title}</strong>
-                    <span>{result.date}<br/>{result.speaker}</span>
+                    <span>{result.date}
+                    <br/>{result.speaker}
+                    <br/>{result.contents}=</span>
                 </Link>
             ))}
             {searchResults.length === 0 && (
