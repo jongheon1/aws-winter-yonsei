@@ -9,6 +9,7 @@ function EgovMain(props) {
     const [count, setCount] = useState(0);
     const [sort, setSort] = useState('RANK');
     const [page, setPage] = useState(0);
+    const [fineSearch, setFineSearch] = useState(false);
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -72,6 +73,10 @@ function EgovMain(props) {
                                 handleSearch(e, 0, sort)
                             }}
                             >검색</button>
+                        </li>
+                        <li>
+                            {/* toggle */}
+                            
                         </li>
                     </ul>
                 </div>
@@ -152,7 +157,7 @@ function EgovMain(props) {
                                 if there are no search results, display a message
                             */}
                             {searchResults.length === 0 && (
-                                <p style={{ alignContent: 'center' }}>검색 결과가 없습니다.</p>
+                                <p style={{ textAlign: 'center' }}>검색 결과가 없습니다.</p>
                             )}
                         </div>
                     </div>

@@ -137,7 +137,11 @@
     .paging .btn .next {width: 32px; height: 32px; margin-left: 0; background-size: 7px 13px;}
     .paging .btn .last {width: 32px; height: 32px; background-size: 7px 13px;}
     .paging ul li {margin-top: 0; font-size: 0;}
-    .paging ul li button {width: 32px; height: 32px; font-size: 14px; line-height: 32px;}
+        .paging ul li button {
+            height: 32px;
+            font-size: 14px;
+            line-height: 32px;
+        }
 
     .board_view_top .tit {padding: 16px 16px 0 16px; border-bottom: 0; font-size: 14px;}
     .board_view_top .info {text-align: center;}
