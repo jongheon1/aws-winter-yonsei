@@ -67,12 +67,12 @@ const DetailPage = () => {
 
     const [content, setContent] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
     const fetchSummary = async () => {
         setIsLoading(true);
         try {
             const response = await axios.post(`http://localhost:8080/gpt/${idx}/summary`);
             setContent(response.data);
+
             setIsLoading(false);
         } catch (error) {
             console.error('요약 내용을 불러오는 데 실패했습니다.', error);
@@ -80,8 +80,13 @@ const DetailPage = () => {
         }
     };
 
+    const renderContentWithBreaks = (content) => {
+        return content.split(/(?=\d\.)/).map((paragraph, index) => (
+            <p key={index} className="summary-text">{paragraph}</p>
+        ));
+    };
 
-    return (
+        return (
         <div className="detail-page">
             <h1 className="detail-page-title">{bill.name}</h1>
             <div className="bill-info">
@@ -109,7 +114,7 @@ const DetailPage = () => {
                 {content && (
                     <div className="summary-content">
                         <h3 className="summary-title">요약 내용</h3>
-                        <p className="summary-text">{content}</p>
+                        {renderContentWithBreaks(content)}
                     </div>
                 )}
             </div>
