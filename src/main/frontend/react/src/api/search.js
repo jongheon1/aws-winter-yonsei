@@ -1,16 +1,17 @@
 import { queryAllByAltText } from '@testing-library/react';
 import axios from 'axios';
 
-export const fetchSearchResults = async () => {
+export const fetchSearchResults = async (query) => {
     try {
-      const response = await axios.get('/api/search');
+      const response = await axios.get(`http://52.78.206.96:5000/search/${query}`);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch search results');
     }
   };
 
-export const fetchKeword = async (query) => {
+export const fetchKeword = async (query) => {  
+  // 추천 검색어 요청해서 받아오기\
     try {
       const response = await axios.get(`http://52.78.206.96:5000/keword/${query}`);
 
@@ -21,3 +22,4 @@ export const fetchKeword = async (query) => {
       throw new Error('Failed to fetch keword results');
     }
 };
+

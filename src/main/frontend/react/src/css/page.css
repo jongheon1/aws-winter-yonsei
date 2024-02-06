@@ -37,6 +37,13 @@
     .P_MAIN .mini_board .tab li {float: left;}
     .P_MAIN .mini_board .tab li + li {margin-left: 40px;}
     .P_MAIN .mini_board .tab li a {display: block; position: relative; padding-bottom: 12px; color: #ccc; font-size: 30px; font-weight: 700;}
+                                .P_MAIN .mini_board .tab li div {
+                                    display: block;
+                                    position: relative;
+                                    padding-bottom: 12px;
+                                    font-size: 30px;
+                                    font-weight: 700;
+                                }
     .P_MAIN .mini_board .tab li a.on {color: #222;}
     .P_MAIN .mini_board .tab li a.on::after {content: ""; display: block; position: absolute; left: 0; bottom: 0; width: 100%; height: 4px; background: #0465be;}
     .P_MAIN .mini_board .more {display: block; position: absolute; right: 0; top: 16px; height: 16px; padding-left: 27px; color: #444; font-size: 18px; line-height: 16px; background: url(css/images/ico_plus.png) no-repeat;}
