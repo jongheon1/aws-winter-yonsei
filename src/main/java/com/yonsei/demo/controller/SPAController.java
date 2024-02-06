@@ -10,8 +10,13 @@ public class SPAController {
         return "forward:/";
     }
 
-    @RequestMapping("DetailPage/{bill_no}")
+    @RequestMapping("/DetailPage/{bill_no}")
     public String bill() {
+        return "forward:/";
+    }
+
+    @RequestMapping("/searchResult/**")
+    public String searchResult() {
         return "forward:/";
     }
 }
