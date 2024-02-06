@@ -12,13 +12,6 @@ import EgovError from 'components/EgovError';
 import EgovMain from 'pages/main/EgovMain';
 import EgovLogin from 'pages/login/EgovLogin';
 
-//ABOUT
-import EgovAboutSite from 'pages/about/EgovAboutSite';
-import EgovAboutHistory from 'pages/about/EgovAboutHistory';
-import EgovAboutOrganization from 'pages/about/EgovAboutOrganization';
-import EgovAboutLocation from 'pages/about/EgovAboutLocation';
-
-
 import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 추가
 import initPage from 'js/ui';
 import DetailPage from "pages/detail/DetailPage";
@@ -105,14 +98,6 @@ const SecondRoutes = () => {
 
         {/* ERROR */}
         <Route path={URL.ERROR} element={<EgovError />} />
-
-        {/* ABOUT */}
-        <Route path={URL.ABOUT} element={<Navigate to={URL.ABOUT_SITE} />} />
-        <Route path={URL.ABOUT_SITE} element={<EgovAboutSite />} />
-        <Route path={URL.ABOUT_HISTORY} element={<EgovAboutHistory />} />
-        <Route path={URL.ABOUT_ORGANIZATION} element={<EgovAboutOrganization />} />
-        <Route path={URL.ABOUT_LOCATION} element={<EgovAboutLocation />} />
-
 
         <Route path="/DetailPage/:id" element={<DetailPage />} />
 
