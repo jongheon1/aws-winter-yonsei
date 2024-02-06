@@ -20,7 +20,7 @@ const DetailPage = () => {
         const url = axios.post(`http://localhost:8080/${idx}/pdfurl`);
         WebViewer(
             {
-                path: "../node_modules/@pdftron/webviewer/public",
+                path: "aws-winter-yonsei/node_modules/@pdftron/webviewer/public",
                 licenseKey: "demo:1707201620106:7f4eafe9030000000069fe03ee7211c47e235a224e21040bb60f132600",
                 initialDoc: url,
             },
@@ -77,7 +77,7 @@ const DetailPage = () => {
 
     return (
         <div className="detail-page">
-            <h1 className="detail-page-title">Detail Page</h1>
+            <h1 className="detail-page-title">{bill.id}</h1>
             <div className="bill-info">
                 <h2 className="bill-info-title">법안 정보</h2>
                 <div className="bill-info-detail">
@@ -105,8 +105,6 @@ const DetailPage = () => {
             </div>
             {/* PDF 뷰어 구성 부분은 여기에 추가 */}
             <div>
-                <h1>Detail Page</h1>
-                //pdf 뷰어
                 <div className="webviewer" ref={viewer} style={{height: "100vh"}}></div>
             </div>
         </div>
