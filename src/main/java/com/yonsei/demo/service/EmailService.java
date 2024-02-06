@@ -27,7 +27,7 @@ public class EmailService {
     @Transactional
     public void sendEmail(
             @NotNull String senderName, String receiverName, String subject, String messageBody) {
-        final String fixedSystemEmail = "hajinkids3106@gmail.com";
+        final String fixedSystemEmail = "allaw.official@gmail.com";
 
         User Sender = userService.findByName(senderName);
 
