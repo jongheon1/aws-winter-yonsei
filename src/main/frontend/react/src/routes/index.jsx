@@ -20,6 +20,7 @@ import EgovAboutLocation from 'pages/about/EgovAboutLocation';
 
 import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 추가
 import initPage from 'js/ui';
+import UserInfo from "../pages/user/userInfo";
 
 const RootRoutes = () => {
   //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
@@ -75,7 +76,7 @@ const RootRoutes = () => {
 
 const SecondRoutes = () => {
   // eslint-disable-next-line no-unused-vars
-  const [loginVO, setLoginVO] = useState({});
+  const [, setLoginVO] = useState({});
 
   //useRef객체를 사용하여 페이지 마운트 된 후 ui.js를 로딩 하도록 변경 코드 추가(아래)
   const isMounted = useRef(false); // 아래 로그인 이동 부분이 2번 실행되지 않도록 즉, 마운트 될 때만 실행되도록 변수 생성
@@ -98,6 +99,7 @@ const SecondRoutes = () => {
         <Route path={URL.LOGIN} element={<EgovLogin
                 onChangeLogin={(user) => setLoginVO(user)}
               />}/>
+          <Route path={URL.USERINFO} element={<UserInfo/>}/>
 
         {/* ERROR */}
         <Route path={URL.ERROR} element={<EgovError />} />
