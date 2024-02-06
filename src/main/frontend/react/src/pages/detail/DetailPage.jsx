@@ -70,16 +70,29 @@ const DetailPage = () => {
         fetchPdf();
     }, [idx]);
 
+
+    const [content, setContent] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const fetchSummary = async () => {
+        setIsLoading(true);
         try {
             const response = await axios.post(`http://localhost:8080/gpt/${idx}/summary`);
             setContent(response.data);
+
+            setIsLoading(false);
         } catch (error) {
             console.error('요약 내용을 불러오는 데 실패했습니다.', error);
+            setIsLoading(false);
         }
     };
 
-    return (
+    const renderContentWithBreaks = (content) => {
+        return content.split(/(?=\d\.)/).map((paragraph, index) => (
+            <p key={index} className="summary-text">{paragraph}</p>
+        ));
+    };
+
+        return (
         <div className="detail-page">
             <h1 className="detail-page-title">{bill.name}</h1>
             <div className="bill-info">
@@ -99,14 +112,19 @@ const DetailPage = () => {
             </div>
 
             <div className="bill-summary">
-                <button className="summary-button" onClick={fetchSummary}>요약 보기</button>
+                {!content && (
+                <button className="summary-button" onClick={fetchSummary} disabled={isLoading}>
+                    {isLoading ? '요약 중...' : '요약 보기'}
+                </button>)
+                }
                 {content && (
                     <div className="summary-content">
                         <h3 className="summary-title">요약 내용</h3>
-                        <p className="summary-text">{content}</p>
+                        {renderContentWithBreaks(content)}
                     </div>
                 )}
             </div>
+
             {/* PDF 뷰어 구성 부분은 여기에 추가 */}
             <div>
                 <div className="webviewer" ref={viewer} style={{height: "100vh"}}></div>
