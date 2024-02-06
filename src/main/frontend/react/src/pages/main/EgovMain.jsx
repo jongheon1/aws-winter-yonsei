@@ -111,6 +111,7 @@ function EgovMain(props) {
               const data = await fetchSearchResults(searchQuery, page, sort);
               setSearchResults(data.result);
               setCount(data.total);
+              setPage(0);
             } catch (error) {
               console.error('Error fetching search results:', error);
             }
@@ -170,9 +171,7 @@ function EgovMain(props) {
                                 </li>
                             </ul>
                             <ul className="navigate">
-                                <li>l- </li>
-                                <li>{page}</li>
-                                <li> -l</li>
+                                {page}
                             </ul>
                         </div>
 
@@ -189,32 +188,6 @@ function EgovMain(props) {
                             {searchResults.length === 0 && (
                                 <p style={{ alignContent: 'center' }}>검색 결과가 없습니다.</p>
                             )}
-                            {/* <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
-                                <strong>법안번호</strong>
-                                <span>법안제목<br />초록색은 승인된법안</span>
-                            </Link>
-                            <Link to={URL.ABOUT} className="bn2">
-                                <strong>법안번호</strong>
-                                <span>법안제목<br />빨간색은 철회법안</span>
-                            </Link>
-                            <Link to={URL.SUPPORT_DOWNLOAD} className="bn3">
-                                <strong>법안번호</strong>
-                                <span>법안제목<br />회색은 계류법안</span>
-                            </Link> */}
-                            </Link>
-                            <Link to={URL.ABOUT} className="bn3">
-                                <strong>법안번호</strong>
-                                <span>법안제목<br />회색은 계류법안</span>
-                            </Link>
-                            <div>
-                                <input
-                                    type="text"
-                                    value={billId}
-                                    onChange={handleChange}
-                                    placeholder="법안 ID 입력"
-                                />
-                                <Link to={`/detailPage/${billId}`}>클릭</Link> {/* 동적으로 경로 생성 */}
-                            </div>
                         </div>
                     </div>
 
