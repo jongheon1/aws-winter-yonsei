@@ -37,7 +37,7 @@ const DetailPage = () => {
     
         const fetchPdf = async() => {
             try {
-                const rectangleWidth = window.innerWidth * 0.5;
+                const rectangleWidth = window.innerWidth * 0.8;
                 const rectangleHeight = window.innerHeight * 0.2;
                 WebViewer(
                     {
@@ -70,8 +70,6 @@ const DetailPage = () => {
         fetchPdf();
     }, [idx]);
 
-
-    const [content, setContent] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const fetchSummary = async () => {
         setIsLoading(true);
