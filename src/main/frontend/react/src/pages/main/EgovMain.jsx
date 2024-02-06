@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
+import { fetchSearchResults, fetchKeword } from 'api/search';
 
 function EgovMain(props) {
 
@@ -24,6 +24,14 @@ function EgovMain(props) {
     const [gallaryBoard, setGallaryBoard] = useState();
     const [noticeListTag, setNoticeListTag] = useState();
     const [gallaryListTag, setGallaryListTag] = useState();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [keword, setKeword] = useState('');
+    const [count, setCount] = useState(0);
+
+    const handleInputChange = (e) => {
+      setSearchQuery(e.target.value);
+    };
 
     const retrieveList = useCallback(() => {
         console.groupCollapsed("EgovMain.retrieveList()");
@@ -100,8 +108,7 @@ function EgovMain(props) {
         retrieveList();
     }, [retrieveList]);
 
-    console.log("------------------------------EgovMain [End]");
-    console.groupEnd("EgovMain");
+
 
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
@@ -120,10 +127,25 @@ function EgovMain(props) {
                             </label>
                         </li>
                         <li className="third_2 R">
-                            {/* <!-- 210806 수정 --> */}
                             <span className="f_search">
-                                <input type="text" name="" placeholder=""/>
-                                <button type="button">조회</button>
+                                <input
+                                    type="text" name="" placeholder="검색어를 입력해주세요"
+                                    value={searchQuery}
+                                    onChange={handleInputChange()}
+                                    onKeyDown={(e) => {}}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        fetchSearchResults("sns", "title", "1", "10")
+                                            .then((response) => {
+                                                searchResults = response;
+                                            })
+                                            .catch((error) => {
+                                                console.error("error : ", error);
+                                            });
+                                    }}
+                                >조회</button>
                             </span>
                         </li>
                         <li>
@@ -137,6 +159,10 @@ function EgovMain(props) {
                             <ul className="tab">
                                 <li><a href="#default" className="on">정확도순</a></li>
                                 <li><a href="#latest">최신순</a></li>
+                                {/* <li> 총 {kesword} </li> */}
+                                <li>
+                                    <div style={{display: count > 0 ? "block" : "none"}}>총 {count} 개의 검색결과</div>
+                                </li>
                             </ul>
                             <div className="list">
                                 <div className="notice">
@@ -158,6 +184,12 @@ function EgovMain(props) {
                         </div>
 
                         <div className="banner">
+                            {/* {searchResults.map((result) => (
+                                <Link key={result.id} to={result.url} className={`bn${result.status}`}>
+                                    <strong>{result.billNumber}</strong>
+                                    <span>{result.title}<br />{result.statusDescription}</span>
+                                </Link>
+                            ))} */}
                             <Link to={URL.SUPPORT_DOWNLOAD} className="bn1">
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />초록색은 승인된법안</span>
@@ -192,45 +224,6 @@ function EgovMain(props) {
                     </div>
                     <br />
                 </div>
-                
-
-                {/* <div className="banner_bot">
-                    <div className="b1">
-                        <div>
-                            <h2>주요사업 소개</h2>
-                            <p>표준프레임워크가 제공하는<br />
-                                주요 사업을 소개합니다.</p>
-                        </div>
-                        <Link to={URL.INTRO_WORKS}>자세히 보기</Link>
-                    </div>
-                    <div className="b2">
-                        <div>
-                            <h2>대표서비스 소개</h2>
-                            <p>표준프레임워크 실행환경의<br />
-                                서비스 그룹에서 제공하는<br />
-                                대표서비스입니다.</p>
-                        </div>
-                        <Link to={URL.INTRO_SERVICE}>자세히 보기</Link>
-                    </div>
-                    <div className="b3">
-                        <div>
-                            <h2>서비스 신청</h2>
-                            <p>표준프레임워크 경량환경<br />
-                                홈페이지의 다양한 서비스를<br />
-                                신청 하실 수 있습니다.</p>
-                        </div>
-                        <Link to={URL.SUPPORT_APPLY}>자세히 보기</Link>
-                    </div>
-                    <div className="b4">
-                        <div>
-                            <h2>일정 현황</h2>
-                            <p>표준프레임워크 경량환경<br />
-                                홈페이지의 전체적인 일정<br />
-                                현황을 조회하실 수 있습니다.</p>
-                        </div>
-                        <Link to={URL.INFORM}>자세히 보기</Link>
-                    </div>
-                </div> */}
             </div>
         </div>
 
