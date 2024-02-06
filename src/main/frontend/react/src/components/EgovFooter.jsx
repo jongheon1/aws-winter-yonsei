@@ -8,7 +8,7 @@ function EgovFooter() {
             <div className="inner">
                 <div className="info">
                     <p>
-                        대표문의메일 : yheewon@yonsei.ac.kr  <span className="m_hide">|</span><br className="m_show" />  대표전화 : 010-3367-8230<br />
+                        대표문의메일 : allaw.official@gmail.com  <span className="m_hide">|</span><br className="m_show" />  대표전화 : 010-3367-8230<br />
                     </p>
                     <p className="copy">Copyright © 2024 All Rights Reserved.</p>
                 </div>
