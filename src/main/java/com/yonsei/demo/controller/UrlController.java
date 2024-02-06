@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UrlController {
     private final UrlService urlService;
 
-    @PostMapping("/{billsNum}/pdfurl")
+    @PostMapping("/pdfurl/{billsNum}/")
     public String pdfUrl(@PathVariable final Integer billsNum) {
         return urlService.pdfUrl(billsNum);
     }

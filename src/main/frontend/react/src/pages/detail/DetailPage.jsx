@@ -15,57 +15,61 @@ const DetailPage = () => {
         proposer: '',
         date: ''
     });
+    const [content, setContent] = useState();
 
     useEffect(() => {
-        const url = axios.post(`http://localhost:8080/${idx}/pdfurl`);
-        WebViewer(
-            {
-                path: "aws-winter-yonsei/node_modules/@pdftron/webviewer/public",
-                licenseKey: "demo:1707201620106:7f4eafe9030000000069fe03ee7211c47e235a224e21040bb60f132600",
-                initialDoc: url,
-            },
-            viewer.current,
-        ).then((instance) => {
-            const {documentViewer, annotationManager, Annotations} = instance.Core;
-
-            documentViewer.addEventListener('documentLoaded', () => {
-                const rectangleAnnot = new Annotations.RectangleAnnotation({
-                    PageNumber: 1,
-                    // values are in page coordinates with (0, 0) in the top left
-                    X: 100,
-                    Y: 150,
-                    Width: 200,
-                    Height: 50,
-                    Author: annotationManager.getCurrentUser()
-                });
-
-                annotationManager.addAnnotation(rectangleAnnot);
-                // need to draw the annotation otherwise it won't show up until the page is refreshed
-                annotationManager.redrawAnnotation(rectangleAnnot);
-            });
-        });
-        const URL = "https://open.assembly.go.kr/portal/openapi/TVBPMBILL11?" +
-            "TYPE=json&" +
-            `BILL_NO=${idx}`;
         const fetchBillDetails = async () => {
-            try {
-                const response = (await axios.get(URL)).data.TVBPMBILL11[1].row[0];
+            try{
+                const response = await axios.get(
+                    `https://open.assembly.go.kr/portal/openapi/TVBPMBILL11?TYPE=json&BILL_NO=${idx}`
+                  );
+                  const data = response.data.TVBPMBILL11[1].row[0];
                 setBill({
                     ...bill,
-                    name: response.BILL_NAME,
-                    proposer: response.PROPOSER,
-                    date: response.PROPOSE_DT
+                    name: data.BILL_NAME,
+                    proposer: data.PROPOSER,
+                    date: data.PROPOSE_DT
                 });
             } catch (error) {
                 console.error('법안 정보를 불러오는 데 실패했습니다.', error);
             }
         };
+    
+        const fetchPdf = async() => {
+            try {
+                const rectangleWidth = window.innerWidth * 0.5;
+                const rectangleHeight = window.innerHeight * 0.2;
+                WebViewer(
+                    {
+                        path: "/webviewer/lib/public",
+                        licenseKey: "demo:1707201620106:7f4eafe9030000000069fe03ee7211c47e235a224e21040bb60f132600",
+                        initialDoc: `http://52.78.206.96:5000/file/${idx}`
+                    },
+                    viewer.current,
+                ).then((instance) => {
+                    const { documentViewer, annotationManager, Annotations } = instance.Core;
+                    documentViewer.addEventListener("documentLoaded", () => {
+                        const rectangleAnnot = new Annotations.RectangleAnnotation({
+                            PageNumber: 1,
+                            X: 0,
+                            Y: 0,
+                            Width: rectangleWidth,
+                            Height: rectangleHeight,
+                            Author: annotationManager.getCurrentUser(),
+                        });
+                        annotationManager.addAnnotation(rectangleAnnot);
+                        annotationManager.redrawAnnotation(rectangleAnnot);
+                    });
+                });
+            } catch (error) {
+                console.error("Failed to fetch PDF URL:", error);
+            }
+    };
 
         fetchBillDetails();
-    }, []);
+        fetchPdf();
+    }, [idx]);
 
-
-    const [content, setContent] = useState();
     const fetchSummary = async () => {
         try {
             const response = await axios.post(`http://localhost:8080/gpt/${idx}/summary`);

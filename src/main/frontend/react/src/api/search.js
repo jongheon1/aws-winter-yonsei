@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchSearchResults = async (query, page, sort) => {
     try {
-      const response = await axios.get(`http://52.78.206.96:5001/search/${query}?page=${page}&sort=${sort}`);
+      const response = await axios.get(`http://52.78.206.96:5000/search/${query}?page=${page}&sort=${sort}`);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch search results');
