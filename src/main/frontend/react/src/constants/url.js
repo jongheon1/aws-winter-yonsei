@@ -5,6 +5,8 @@ const URL = {
     
     LOGIN                       : "/login", //로그인
     ERROR                       : "/error", //로그인
+
+    USERINFO                    : "/userinfo",
     
     //ABOUT
     ABOUT                       : "/about", //사이트소개   

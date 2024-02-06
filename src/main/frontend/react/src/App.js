@@ -6,13 +6,14 @@ import './css/layout.css';
 import './css/component.css';
 import './css/page.css';
 import './css/response.css';
+import {AuthProvider} from "./AuthContext";
 
 function App() {
   return (
     <div className="wrap">
-      {/* <React.StrictMode> */}
-        <RootRoutes />
-      {/* </React.StrictMode> */}
+        <AuthProvider>
+            <RootRoutes />
+        </AuthProvider>
     </div>
   )
 }
