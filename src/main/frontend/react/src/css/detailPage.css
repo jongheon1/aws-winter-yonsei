@@ -1,0 +1,91 @@
+.detail-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.detail-page-title {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+}
+
+ .bill-summary {
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ .summary-title {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #0056b3;
+}
+
+ .summary-text {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.summary-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: max-content;
+    margin: 20px auto;
+}
+
+.summary-button:hover {
+    background-color: #0056b3;
+}
+
+.summary-content {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.bill-info {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.bill-info-title {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #0056b3;
+    font-weight: 500;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.bill-info-detail {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+    width: 120px; /* 고정 너비를 주어 라벨들이 일정하게 정렬되도록 함 */
+}

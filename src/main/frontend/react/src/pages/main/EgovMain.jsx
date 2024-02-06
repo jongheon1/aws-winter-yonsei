@@ -6,9 +6,13 @@ import { fetchSearchResults, fetchKeword } from 'api/search';
 
 function EgovMain(props) {
 
-    console.log("[props] : ", props);
+    const [billId, setBillId] = useState('');
+    const handleChange = (e) => {
+        setBillId(e.target.value); // 입력 필드의 값이 변경될 때 billId 상태 업데이트
+    };
+
     const location = useLocation();
-    console.log("[location] : ", location);
+
 	// eslint-disable-next-line no-unused-vars
     const [noticeBoard, setNoticeBoard] = useState();
 	// eslint-disable-next-line no-unused-vars
@@ -134,13 +138,13 @@ function EgovMain(props) {
                         </li>
                         <li className="third_2 R">
                             <span className="f_search">
-                                <input 
+                                <input
                                     type="text" name="" placeholder="검색어를 입력해주세요"
                                     value={searchQuery}
                                     onChange={handleInputChange}
                                     onKeyDown={(e) => handleSearch(e)} 
                                 />
-                                <button 
+                                <button
                                     type="button"
                                     onClick={(e) => handleSearch(e)}
                                 >조회</button>
@@ -197,6 +201,20 @@ function EgovMain(props) {
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />회색은 계류법안</span>
                             </Link> */}
+                            </Link>
+                            <Link to={URL.ABOUT} className="bn3">
+                                <strong>법안번호</strong>
+                                <span>법안제목<br />회색은 계류법안</span>
+                            </Link>
+                            <div>
+                                <input
+                                    type="text"
+                                    value={billId}
+                                    onChange={handleChange}
+                                    placeholder="법안 ID 입력"
+                                />
+                                <Link to={`/detailPage/${billId}`}>클릭</Link> {/* 동적으로 경로 생성 */}
+                            </div>
                         </div>
                     </div>
 
