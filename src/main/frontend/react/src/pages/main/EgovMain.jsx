@@ -93,7 +93,6 @@ function EgovMain(props) {
                         {suggestedKeywords.map((item, index) => (
                             <>{item &&
                                 <li key={index} onClick={() => {
-                                    document.querySelector('.suggested-keywords').classList.remove('active');
                                     setSearchQuery(item.keyword)
                                 }}>
                                     {item.keyword}
