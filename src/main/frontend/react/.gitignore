@@ -25,4 +25,5 @@ yarn-error.log*
 # code
 .history
 
+.env*
 application.yml
