@@ -15,10 +15,6 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @NotNull
-    @Setter
-    @Getter
-    public String sender;
     /**
     @NotNull @Setter
     @ManyToOne
@@ -36,8 +32,7 @@ public class Email {
 
     @NotNull @Getter @Setter public String messageBody;
 
-    public Email(String sender, User receiver, String subject, String messageBody) {
-        this.sender = sender;
+    public Email(User receiver, String subject, String messageBody) {
         this.receiver = receiver;
         this.subject = subject;
         this.messageBody = messageBody;

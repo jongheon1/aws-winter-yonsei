@@ -14,16 +14,15 @@ public class EmailUtil {
         this.service = service;
     }
 
-    public void sendEmail(final User receiver, final String subject, final String messageBody) {
-        sendEmail("Allaw System", receiver, subject, messageBody);
-    }
+//    public void sendEmail(final User receiver, final String subject, final String messageBody) {
+//        sendEmail("Allaw System", receiver, subject, messageBody);
+//    }
 
     public void sendEmail(
-            final String sender,
             final User receiver,
             final String subject,
             final String messageBody) {
-        final Email email = new Email(sender, receiver, subject, messageBody);
+        final Email email = new Email(receiver, subject, messageBody);
         service.save(email);
     }
 }

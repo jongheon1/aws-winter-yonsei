@@ -1,5 +1,6 @@
 package com.yonsei.demo.service;
 import com.yonsei.demo.entity.Email;
+import com.yonsei.demo.entity.Keyword;
 import com.yonsei.demo.entity.User;
 import com.yonsei.demo.repository.EmailRepository;
 
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.yonsei.demo.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,15 +23,23 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EmailService {
     private final EmailRepository repository;
+    private final SubscriptionRepository subscriptionRepository;
     private final UserService userService;
+    private final KeywordService keywordService;
     private final JavaMailSender emailSender;
 
     @Transactional
-    public void sendEmail(
-            @NotNull String senderName, String receiverName, String subject, String messageBody) {
-        final String fixedSystemEmail = "allaw.official@gmail.com";
+    public void sendEmailByKeyword(String keywordValue, String subject, String messageBody){
+        Keyword keyword = keywordService.findByValue(keywordValue);
+        List<User> receivers = subscriptionRepository.findAllUsersByKeyword(keyword.getId()).get();
+        for(User receiver: receivers){
+            sendEmail(receiver.getName(),subject,messageBody);
+        }
+    }
 
-        User Sender = userService.findByName(senderName);
+    @Transactional
+    public void sendEmail( String receiverName, String subject, String messageBody) {
+        final String fixedSystemEmail = "allaw.official@gmail.com";
 
         User receiver = userService.findByName(receiverName);
         if (receiver == null) {
@@ -43,11 +53,11 @@ public class EmailService {
             message.setFrom(fixedSystemEmail);
             message.setTo(receiverEmail);
             message.setSubject("[Allaw system] " + subject);
-            message.setText(senderName + "(으)로부터 전송된 메세지입니다.\n" + messageBody);
+            message.setText(messageBody);
 
             emailSender.send(message);
         }
-        Email email = new Email(senderName, receiver, subject, messageBody);
+        Email email = new Email(receiver, subject, messageBody);
 
         repository.save(email);
     }
@@ -78,12 +88,6 @@ public class EmailService {
 
         return validation;
     }
-
-    public List<Email> findBySender(final String sender) {
-       // loggerUtil.log(TransactionType.PATIENT_VIEWS_EMAIL_ENTITY, sender);
-        return repository.findBySender(sender);
-    }
-
     public List<Email> findAll() {
         return repository.findAll();
     }

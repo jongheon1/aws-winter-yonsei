@@ -25,22 +25,36 @@ public class EmailController{
     }
 
     @PostMapping("/send")
-    @PreAuthorize("isAuthenticated()")
-    public String sendEmail(
-            @RequestBody @NotNull EmailDto emailForm) {
-        //String senderName = loggerUtil.getCurrentUsername();
+    public String sendEmailByKeyword(
+            @RequestBody @NotNull EmailDto emailForm){
         try{
-            service.sendEmail(
-                    emailForm.getSender(),
-                    emailForm.getReceiver(),
+            service.sendEmailByKeyword(
+                    emailForm.getKeyword(),
                     emailForm.getSubject(),
                     emailForm.getMessageBody());
-            //loggerUtil.log(TransactionType.USER_TO_USER_EMAIL, senderName, emailForm.getReceiver());
         }catch (Exception e) {
             return "이메일 전송에 실패하였습니다. 오류: " + e.getMessage();
         }
         return "이메일 전송에 성공하였습니다!";
     }
+
+
+//    @PostMapping("/send")
+//    @PreAuthorize("isAuthenticated()")
+//    public String sendEmail(
+//            @RequestBody @NotNull EmailDto emailForm) {
+//        //String senderName = loggerUtil.getCurrentUsername();
+//        try{
+////            service.sendEmail(
+////                    emailForm.getReceiver(),
+////                    emailForm.getSubject(),
+////                    emailForm.getMessageBody());
+//            //loggerUtil.log(TransactionType.USER_TO_USER_EMAIL, senderName, emailForm.getReceiver());
+//        }catch (Exception e) {
+//            return "이메일 전송에 실패하였습니다. 오류: " + e.getMessage();
+//        }
+//        return "이메일 전송에 성공하였습니다!";
+//    }
     /**
     @GetMapping("/Outbox")
     public List<Email> viewOutbox() {

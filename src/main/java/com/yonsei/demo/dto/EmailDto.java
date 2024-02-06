@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailDto {
+
         @NotNull
-        public String receiver;
-        @NotNull
-        private String sender;
+        public String keyword;
         @NotNull
         private String subject;
         @NotNull
