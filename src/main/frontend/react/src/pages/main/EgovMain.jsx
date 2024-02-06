@@ -5,6 +5,12 @@ import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 
 function EgovMain(props) {
+
+    const [billId, setBillId] = useState('');
+    const handleChange = (e) => {
+        setBillId(e.target.value); // 입력 필드의 값이 변경될 때 billId 상태 업데이트
+    };
+
     console.group("EgovMain");
     console.log("[Start] EgovMain ------------------------------");
     console.log("EgovMain [props] : ", props);
@@ -168,7 +174,15 @@ function EgovMain(props) {
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />회색은 계류법안</span>
                             </Link>
-                            <Link to={`/detailPage/${2015318}`}>클릭</Link>
+                            <div>
+                                <input
+                                    type="text"
+                                    value={billId}
+                                    onChange={handleChange}
+                                    placeholder="법안 ID 입력"
+                                />
+                                <Link to={`/detailPage/${billId}`}>클릭</Link> {/* 동적으로 경로 생성 */}
+                            </div>
                         </div>
                     </div>
 

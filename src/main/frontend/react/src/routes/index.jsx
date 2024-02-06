@@ -114,7 +114,7 @@ const SecondRoutes = () => {
         <Route path={URL.ABOUT_LOCATION} element={<EgovAboutLocation />} />
 
 
-        <Route path={"/DetailPage/:id"} element={<DetailPage />} />
+        <Route path="/DetailPage/:id" element={<DetailPage />} />
 
       </Routes>
       <EgovFooter />
