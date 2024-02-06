@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@pdftron/webviewer": "^10.6.0",
     "axios": "^1.6.5",
     "http-proxy-middleware": "^2.0.6",
     "qs": "^6.11.0",

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 import * as EgovNet from 'api/egovFetch';
 import URL from 'constants/url';
 
@@ -91,9 +90,6 @@ function EgovMain(props) {
     useEffect(() => {
         retrieveList();
     }, [retrieveList]);
-
-    console.log("------------------------------EgovMain [End]");
-    console.groupEnd("EgovMain");
 
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>

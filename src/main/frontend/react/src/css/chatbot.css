@@ -7,12 +7,14 @@
 
 .chatbot-button {
     width: 120px; /* 버튼 크기 조정 */
-    height: 40px; /* 버튼 크기 조정 */
+    height: 80px;
+        /* 버튼 크기 조정 */
     cursor: pointer;
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background-color: #169bd5; /* 버튼 배경색 */
+    background-color: #000000;
+        /* 버튼 배경색 */
     border-radius: 20px; /* 원형 버튼 */
     color: #fff; /* 텍스트 색상 */
     font-size: 18px; /* 아이콘 크기에 따라 조정 */
@@ -23,7 +25,8 @@
 }
 
 .chatbot-button:hover {
-    background-color: #0d7ca3; /* 호버 시 배경색 변경 */
+    background-color: #000000;
+        /* 호버 시 배경색 변경 */
     transform: scale(1.1); /* 호버 시 약간 확대 */
 }
 

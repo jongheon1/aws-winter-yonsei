@@ -14,6 +14,7 @@ function EgovHeader() {
 
                 <h1 className="logo">
                     <Link to={URL.MAIN} className="w"><img src="/assets/images/logo.svg" alt="표준프레임워크포털 eGovFrame 심플홈페이지" /></Link>
+                    <Link to={URL.MAIN} className="m"><img src="/assets/images/logo.svg" alt="표준프레임워크포털 eGovFrame 심플홈페이지" /></Link>
                 </h1>
 
                 <div className="gnb">
