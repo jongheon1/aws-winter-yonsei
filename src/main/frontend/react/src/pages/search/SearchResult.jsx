@@ -63,76 +63,38 @@ function SearchResult() {
     };
 
     return (
-        <>
-        <div className="condition">
-            <ul>
-                <li className="third_1 L">
-                    <label className="f_select" htmlFor="search_select">
-                        <select defaultValue={"0"} name="search_select" id="search_select">
-                            <option value="0">전체</option>
-                            {/* <option value="1">제목</option> */}
-                            {/* <option value="2">제목/내용</option> */}
-                            {/* <option value="3">작성자</option> */}
-                        </select>
-                    </label>
-                </li>
-                <li className="third_2 R">
-                            <span className="f_search">
-                                <input
-                                    type="text" name="" placeholder="검색어를 입력해주세요"
-                                    value={searchQuery}
-                                    onChange={handleInputChange}
-                                    onKeyDown={(e) => handleSearch(e)}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={(e) => handleSearch(e)}
-                                >조회</button>
-                            </span>
-                </li>
-                <li>
-                    <button
-                        className="btn btn_blue_h46 pd35"
-                        onClick={(e) => handleSearch(e)}
-                    >검색
-                    </button>
-                </li>
-            </ul>
-        </div>
-            <div className="search-results">
-                {searchResults.map((result) => (
-                    <Link to={`/DetailPage/${result.bill_no}`} className={`bn${result.status ?? 3}`}>
-                        <strong>{result.title}</strong>
-                        <span>{result.date}<br/>{result.speaker}</span>
-                    </Link>
-                ))}
-                {searchResults.length === 0 && (
-                    <p style={{alignContent: 'center'}}>검색 결과가 없습니다.</p>
+        <div className="search-results">
+            {searchResults.map((result) => (
+                <Link to={`/DetailPage/${result.bill_no}`} className={`bn${result.status ?? 3}`}>
+                    <strong>{result.title}</strong>
+                    <span>{result.date}
+                    <br/>{result.speaker}
+                    <br/>{result.contents}=</span>
+                </Link>
+            ))}
+            {searchResults.length === 0 && (
+                <p style={{alignContent: 'center'}}>검색 결과가 없습니다.</p>
+            )}
+            <div className="pagination">
+                {startPage > 0 && (
+                    <button onClick={() => handlePageChange(startPage - 1)}>이전</button>
                 )}
-                <div style={{display: count > 0 ? "block" : "none"}}>총 {count} 개의 검색결과</div>
-
-                <div className="pagination">
-                    {startPage > 0 && (
-                        <button onClick={() => handlePageChange(startPage - 1)}>이전</button>
-                    )}
-                    {Array.from({length: Math.min(MAX_PAGE_NUM_DISPLAY, totalPages - startPage)}, (_, i) => (
-                        <button
-                            key={i + startPage}
-                            onClick={() => handlePageChange(i + startPage)}
-                            disabled={i + startPage === page}
-                        >
-                            {i + startPage + 1}
-                        </button>
-                    ))}
-                    {startPage + MAX_PAGE_NUM_DISPLAY < totalPages && (
-                        <button onClick={() => handlePageChange(startPage + MAX_PAGE_NUM_DISPLAY)}>다음</button>
-                    )}
-                </div>
-
+                {Array.from({length: Math.min(MAX_PAGE_NUM_DISPLAY, totalPages - startPage)}, (_, i) => (
+                    <button
+                        key={i + startPage}
+                        onClick={() => handlePageChange(i + startPage)}
+                        disabled={i + startPage === page}
+                    >
+                        {i + startPage + 1}
+                    </button>
+                ))}
+                {startPage + MAX_PAGE_NUM_DISPLAY < totalPages && (
+                    <button onClick={() => handlePageChange(startPage + MAX_PAGE_NUM_DISPLAY)}>다음</button>
+                )}
             </div>
-        </>
-    )
-        ;
+
+        </div>
+    );
 }
 
 export default SearchResult;
