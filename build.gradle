@@ -53,6 +53,7 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'com.aspose:aspose-pdf:24.1'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.apache.pdfbox:pdfbox:2.0.24'
 
 	/* Web 
 	compile('org.springframework.boot:spring-boot-starter-data-rest')

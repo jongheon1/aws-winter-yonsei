@@ -168,6 +168,7 @@ function EgovMain(props) {
                                 <strong>법안번호</strong>
                                 <span>법안제목<br />회색은 계류법안</span>
                             </Link>
+                            <Link to={`/detailPage/${2015318}`}>클릭</Link>
                         </div>
                     </div>
 
@@ -177,6 +178,7 @@ function EgovMain(props) {
                     </div>
                     <br />
                 </div>
+                
 
                 {/* <div className="banner_bot">
                     <div className="b1">

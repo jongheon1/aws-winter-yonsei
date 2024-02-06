@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
+import WebViewer from "@pdftron/webviewer";
 import axios from "axios";
 
 const DetailPage = () => {
@@ -19,7 +20,7 @@ const DetailPage = () => {
             //pdf 뷰어
             //요약 버튼
             <button onClick={() => summary()}>요약</button>
-            {content && <Content> {content} </Content>}
+            {content && <div> {content} </div>}
         </div>
     );
 }

@@ -8,6 +8,8 @@ import com.yonsei.demo.dto.SummaryRequestDto;
 import com.yonsei.demo.entity.Bills;
 import com.yonsei.demo.repository.BillsRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -63,14 +65,10 @@ public class ChatGptService {
 
         String link = bills.getFile_link();
         try (BufferedInputStream in = new BufferedInputStream(new URL(link).openStream());){
-            Document pdfDocument = new Document(in);
-
-            TextAbsorber textAbsorber = new TextAbsorber();
-
-            pdfDocument.getPages().accept(textAbsorber);
-
-            String extractedText = textAbsorber.getText();
-            SummaryRequestDto request = new SummaryRequestDto(sumModel, extractedText, SumSystemPrompt);
+            PDDocument document = PDDocument.load(in);
+            PDFTextStripper stripper = new PDFTextStripper();
+            String extractText = stripper.getText(document);
+            SummaryRequestDto request = new SummaryRequestDto(sumModel, extractText, SumSystemPrompt);
 
             // call the API
             ChatResponseDto response = restTemplate.postForObject(apiUrl, request, ChatResponseDto.class);

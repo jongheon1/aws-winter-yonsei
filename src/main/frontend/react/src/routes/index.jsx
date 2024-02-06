@@ -18,8 +18,10 @@ import EgovAboutHistory from 'pages/about/EgovAboutHistory';
 import EgovAboutOrganization from 'pages/about/EgovAboutOrganization';
 import EgovAboutLocation from 'pages/about/EgovAboutLocation';
 
+
 import * as EgovNet from 'api/egovFetch'; // jwt토큰 위조 검사 때문에 추가
 import initPage from 'js/ui';
+import DetailPage from "pages/detail/DetailPage";
 
 const RootRoutes = () => {
   //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
@@ -108,6 +110,9 @@ const SecondRoutes = () => {
         <Route path={URL.ABOUT_HISTORY} element={<EgovAboutHistory />} />
         <Route path={URL.ABOUT_ORGANIZATION} element={<EgovAboutOrganization />} />
         <Route path={URL.ABOUT_LOCATION} element={<EgovAboutLocation />} />
+
+
+        <Route path={"/DetailPage/:id"} element={<DetailPage />} />
 
       </Routes>
       <EgovFooter />
