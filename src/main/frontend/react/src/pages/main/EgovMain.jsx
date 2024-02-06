@@ -11,12 +11,7 @@ function EgovMain(props) {
         setBillId(e.target.value); // 입력 필드의 값이 변경될 때 billId 상태 업데이트
     };
 
-    console.group("EgovMain");
-    console.log("[Start] EgovMain ------------------------------");
-    console.log("EgovMain [props] : ", props);
-
     const location = useLocation();
-    console.log("EgovMain [location] : ", location);
 
 	// eslint-disable-next-line no-unused-vars
     const [noticeBoard, setNoticeBoard] = useState();
@@ -131,7 +126,7 @@ function EgovMain(props) {
                                 <input
                                     type="text" name="" placeholder="검색어를 입력해주세요"
                                     value={searchQuery}
-                                    onChange={handleInputChange()}
+                                    onChange={handleInputChange}
                                     onKeyDown={(e) => {}}
                                 />
                                 <button
@@ -139,7 +134,7 @@ function EgovMain(props) {
                                     onClick={() => {
                                         fetchSearchResults("sns", "title", "1", "10")
                                             .then((response) => {
-                                                searchResults = response;
+                                                setSearchResults(response);
                                             })
                                             .catch((error) => {
                                                 console.error("error : ", error);
