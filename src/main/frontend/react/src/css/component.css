@@ -40,7 +40,10 @@
 .board_list .result .list_item > div.reply::before {content: ""; display: block; position: absolute; left: 27px; top: 24px; width: 22px; height: 14px; background: url(css/images/ico_reply.png) no-repeat;}
 .board_list .no_data {height: 60px; border-bottom: 1px solid #dde2e5; color: #666; font-size: 16px; line-height: 60px; text-align: center;}
 
-.board_bot {margin-top: 40px;}
+.board_bot {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .paging {text-align: center;}
 .paging .btn {margin-top: 0;}

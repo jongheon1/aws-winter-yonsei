@@ -105,9 +105,10 @@ function EgovMain(props) {
         retrieveList();
     }, [retrieveList]);
 
-    const handleSearch = async (e) => {  
+    const handleSearch = async (e, page, sort) => {  
         if (e.type === 'click' || e.key === 'Enter') {
             try {
+                console.log(sort)
               const data = await fetchSearchResults(searchQuery, page, sort);
               setSearchResults(data.result);
               setCount(data.total);
@@ -117,9 +118,13 @@ function EgovMain(props) {
             }
         }
     };
-    
+
+    const switchSort = (target) => {
+        setSort(target);
+        return target;
+    }
+
     console.log("[searchResults] : ", searchResults);
-    console.log("[count] : ", count);
 
     return (
         <div className="container P_MAIN" style={{ backgroundColor: "#7A9ACB" }}>
@@ -143,18 +148,18 @@ function EgovMain(props) {
                                     type="text" name="" placeholder="검색어를 입력해주세요"
                                     value={searchQuery}
                                     onChange={handleInputChange}
-                                    onKeyDown={(e) => handleSearch(e)} 
+                                    onKeyDown={(e) => handleSearch(e, page, sort)} 
                                 />
                                 <button
                                     type="button"
-                                    onClick={(e) => handleSearch(e)}
+                                    onClick={(e) => handleSearch(e, page, sort)}
                                 >조회</button>
                             </span>
                         </li>
                         <li>
                             <button 
                             className="btn btn_blue_h46 pd35"
-                            onClick={(e) => handleSearch(e)}
+                            onClick={(e) => handleSearch(e, page, sort)}
                             >검색</button>
                         </li>
                     </ul>
@@ -163,15 +168,33 @@ function EgovMain(props) {
                     <div className="left_col">
                         <div className="mini_board">
                             <ul className="tab">
-                                <li><a className={sort==="RANK" ? "on" : ""} onClick={() => setSort("RANK")}>정확도순</a></li>
-                                <li><a className={sort==="DATE" ? "on" : ""} onClick={() => setSort("DATE")}>최신순</a></li>
+                                <li><a className={sort==="RANK" ? "on" : ""} onClick={async (e) => {
+                                    setSort("RANK")
+                                    await handleSearch(e, page, "RANK")
+                                }}>정확도순</a></li>
+                                <li><a className={sort==="DATE" ? "on" : ""} onClick={async (e) => {
+                                    setSort("DATE");
+                                    await handleSearch(e, page, "DATE")
+                                }}>최신순</a></li>
                                 {/* <li> 총 {kesword} </li> */}
                                 <li>
                                     <div style={{display: count > 0 ? "block" : "none"}}>총 {count} 개의 검색결과</div>
                                 </li>
                             </ul>
                             <ul className="navigate">
-                                {page}
+                                <div className="board_bot">
+                                {/* <!-- Paging --> */}
+                                <div className="paging">
+                                    <ul>
+                                        <li className="btn"><button to="#" className="first">처음</button></li>
+                                        <li className="btn"><button to="#" className="prev">이전</button></li>
+                                        <li><button to="#">{page+1}</button></li>
+                                        <li className="btn"><button to="#" className="next">다음</button></li>
+                                        <li className="btn"><button to="#" className="last">마지막</button></li>
+                                    </ul>
+                                </div>
+                            {/* <!--/ Paging --> */}
+                        </div>
                             </ul>
                         </div>
 
