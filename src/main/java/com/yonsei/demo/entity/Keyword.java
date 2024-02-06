@@ -1,8 +1,10 @@
 package com.yonsei.demo.entity;
 
+import com.yonsei.demo.dto.KeywordDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.security.Key;
 import java.util.List;
 
 @Getter
@@ -24,5 +26,9 @@ public class Keyword {
 
     public Keyword(String value) {
         this.value = value;
+    }
+
+    public KeywordDto toDto() {
+        return new KeywordDto(this.id, this.value);
     }
 }

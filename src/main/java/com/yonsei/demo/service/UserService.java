@@ -13,17 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional
 @Primary
-@RequiredArgsConstructor
 public class UserService{
 
     private final UserRepository repository;
-
-    //@Override
-    protected JpaRepository getRepository() {
-        return repository;
+    public UserService(UserRepository repository) {
+        this.repository = repository;
     }
 
-     public User findByName(final String username) {
+    public User findByName(final String username) {
         return repository.findByName(username);
     }
 }
