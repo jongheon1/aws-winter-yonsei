@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id 'war'
 }
 
 ext {
@@ -9,7 +10,7 @@ ext {
 }
 
 jar {
-	enabled = false
+	enabled = true //false
 }
 
 group 'yonsei.gemini'

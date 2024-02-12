@@ -21,7 +21,8 @@ const ChatWindow = ({ messages, setMessages }) => {
         }
     };
 
-    const BACKEND_URL = 'http://localhost:8080/gpt/gen';
+    //const BACKEND_URL = 'http://localhost:8080/gpt/gen';
+    const BACKEND_URL = 'http://52.79.230.93:8080/gpt/gen';
     const sendMessageToBackend = async (message) => {
         try {
             // return {
