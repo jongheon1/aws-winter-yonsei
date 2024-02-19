@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.yonsei.demo.service.ChatGptService;
 
 @RestController
-@RequestMapping("/gpt")
+@RequestMapping("http://52.79.230.93:8080/gpt")
 @RequiredArgsConstructor
 public class ChatGptController {
     private final ChatGptService chatGptService;
