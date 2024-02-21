@@ -38,3 +38,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Local database volumn
+db
+
+application.yml
+application-oauth.yml
+node_modules/

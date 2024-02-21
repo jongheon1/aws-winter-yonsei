@@ -1,0 +1,39 @@
+.condition {
+    position: relative;
+}
+
+/* 검색어 입력 시 추천 검색어 목록을 보여주는 CSS 클래스 */
+.suggested-keywords.active {
+    display: block; /* 활성화 시 보임 처리 */
+}
+
+
+
+.suggested-keywords {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* 요소의 가로 길이의 절반만큼 왼쪽으로 이동하여 가운데 정렬 */
+    top: 100px;
+    display: flex; /* 컨테이너를 flexbox로 설정 */
+    flex-direction: column; /* 항목들을 세로 방향으로 나열 */
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    background: #fff; /* 배경색 설정 */
+    border: 0px solid #ddd; /* 테두리 설정 */
+    width: 25%; /* 부모 요소의 전체 너비를 차지하도록 설정 */
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1); /* 그림자 효과 추가 */
+    z-index: 10; /* 다른 요소 위에 표시 */
+}
+
+.suggested-keywords li {
+    padding: 8px 12px; /* 패딩 조정 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+    display: block; /* 활성화 시 보임 처리 */
+    border: 1px solid #ccc;
+    z-index: 10; /* 다른 요소 위에 표시 */
+}
+
+.suggested-keywords li:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
