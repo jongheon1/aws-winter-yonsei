@@ -1,47 +1,23 @@
-```
-┌───────────────────────────────────────────────┐
-                                       _       
-     __ _  ___   ___  _ __ _ __ ___   (_) ___  
-    / _` |/ _ \ / _ \| '__| '_ ` _ \  | |/ _ \ 
-   | (_| | (_) | (_) | |  | | | | | |_| | (_) |
-    \__, |\___/ \___/|_|  |_| |_| |_(_)_|\___/ 
-    |___/                                      
-			     🌩 𝘼𝙣𝙮𝙤𝙣𝙚 𝙘𝙖𝙣 𝙙𝙚𝙫𝙚𝙡𝙤𝙥!
-└───────────────────────────────────────────────┘
-```
+## 프로젝트 개요
 
-# goormIDE
-Welcome to goormIDE!
+법안 정보 시스템은 국회 API를 활용하여 대량의 법안 데이터를 처리하고, 사용자에게 법안 검색, 요약, 상세 조회 기능을 제공하는 웹 애플리케이션입니다. 이 시스템은 효율적인 데이터 검색을 위해 Elasticsearch를 사용하며, 법안 내용을 요약하기 위해 GPT 기반 AI를 도입하였습니다.
 
-goormIDE is a powerful cloud IDE service to maximize productivity for developers and teams.  
-**DEVELOP WITH EXCELLENCE**  
+### 기능
 
-`Happy coding! The goormIDE team`
-
-
-## 🔧 Tip & Guide
-
-* Command feature
-	* You can simply run your script using the shortcut icons on the top right.
-	* Check out `PROJECT > Common/Build/Run/Test/Find Command` in the top menu.
-	
-* Get URL and Port
-	* Click `PROJECT > URL/PORT` in top menu bar.
-	* You can get default URL/Port and add URL/Port in the top menu.
-
-* Useful shortcut
-	
-| Shortcuts name     | Command (Mac) | Command (Window) |
-| ------------------ | :-----------: | :--------------: |
-| Copy in Terminal   | ⌘ + C         | Ctrl + Shift + C |
-| Paste in Terminal  | ⌘ + V         | Ctrl + Shift + V |
-| Search File        | ⌥ + ⇧ + F     | Alt + Shift + F  |
-| Terminal Toggle    | ⌥ + ⇧ + B     | Alt + Shift + B  |
-| New Terminal       | ⌥ + ⇧ + T     | Alt + Shift + T  |
-| Code Formatting    | ⌥ + ⇧ + P     | Alt + Shift + P  |
-| Show All Shortcuts | ⌘ + H         | Ctrl + H         |
-
-## 💬 Support & Documentation
-
-Visit [https://ide.goorm.io](https://ide.goorm.io) to support and learn more about using goormIDE.  
-To watch some usage guides, visit [https://help.goorm.io/en/goormide](https://help.goorm.io/en/goormide)
+- **법안 검색**
+    - 약 10만 개의 법안 PDF 파일을 내려받아 내용을 추출하고 Elasticsearch에 인덱싱.
+    - 제목은 OR 매치로 느슨하게, 내용은 MATCH_PHRASE로 엄격하게 매칭하여 검색 최적화.
+    - RAG (Retrieval-Augmented Generation) 기술 도입 예정.
+- **법안 내용 요약**
+    - 법안 상세 페이지에서 GPT API를 사용하여 법안 내용을 요약.
+    - 법안 요약을 데이터베이스에 저장하여, 요약이 필요할 때 마다 DB에서 조회 후 반환.
+- **챗봇**
+    - 법안 내용을 기반으로 GPT API로 구현된 질의응답 시스템.
+### 백엔드
+- AWS Lambda를 활용하여 Python으로 Elasticsearch 쿼리 함수 개발.
+- 요약, 챗봇, 구독 및 회원가입 등 API 개발 및 AWS 환경에서의 배포와 운영.
+### 프론트엔드
+- React를 사용하여 각 기능에 필요한 사용자 인터페이스 개발.
+### 성과
+- 2024년 3월 24일, GIST-AI4Good 해커톤에서 2등 수상.
+- 2024 국회 공공 데이터 경진대회 본선 진출 (진행 중)
